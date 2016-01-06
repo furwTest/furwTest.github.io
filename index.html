@@ -35,11 +35,8 @@
 	//单击获取点击的经纬度
 	map.addEventListener("click", function(e) {
 		var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
+		marker.enableDragging(); // 开启拖拽
 		map.addOverlay(marker); //增加点
-		//拖拽
-		var marker1 = new BMap.Marker(marker); // 创建标注
-		marker1.enableDragging(); // 开启拖拽
-		map.addOverlay(marker1);
 	});
 	var data_info = [
 		[116.417854, 39.921988, "地址：北京市东城区王府井大街88号乐天银泰百货八层"],
@@ -55,11 +52,8 @@
 	for (var i = 0; i < data_info.length; i++) {
 		var marker = new BMap.Marker(new BMap.Point(data_info[i][0], data_info[i][1])); // 创建标注
 		var content = data_info[i][2];
+		marker.enableDragging(); // 开启拖拽
 		map.addOverlay(marker); // 将标注添加到地图中
-		//拖拽
-		var marker2 = new BMap.Marker(marker); // 创建标注
-		marker2.enableDragging(); // 开启拖拽
-		map.addOverlay(marker2);
 		addClickHandler(content, marker);
 	}
 
