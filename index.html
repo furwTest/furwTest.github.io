@@ -54,6 +54,14 @@
 	map.centerAndZoom(point, 15);
 	map.enableScrollWheelZoom(); //启用滚轮放大缩小，默认禁用
 	
+	
+	var opts1 = {
+		width: 250, // 信息窗口宽度
+		height: 80, // 信息窗口高度
+		title: "信息窗口", // 信息窗口标题
+		enableMessage: true //设置允许信息窗发送短息
+	};
+	
 	//单击获取点击的经纬度
 	map.addEventListener("click", function(e) {
 		//判断点击的是 地图 还是覆盖物
@@ -63,6 +71,13 @@
 			//添加标记
 			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
 			marker.enableDragging(); // 开启拖拽
+			
+			var point = new BMap.Point(e.point.lng, e.point.lat);
+			var infoWindow = new BMap.InfoWindow(opts1); // 创建信息窗口对象 
+			map.openInfoWindow(infoWindow, point); //开启信息窗口
+			
+			
+			
 			map.addOverlay(marker); //增加点
 		}
 	});
