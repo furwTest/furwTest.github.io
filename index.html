@@ -38,6 +38,7 @@
 		map.addOverlay(marker); //增加点
 		//拖拽
 		var marker = new BMap.Marker(marker); // 创建标注
+		marker.enableDragging(); // 开启拖拽
 		map.addOverlay(marker);
 	});
 	var data_info = [
@@ -57,6 +58,7 @@
 		map.addOverlay(marker); // 将标注添加到地图中
 		//拖拽
 		var marker = new BMap.Marker(marker); // 创建标注
+		marker.enableDragging(); // 开启拖拽
 		map.addOverlay(marker);
 		addClickHandler(content, marker);
 	}
