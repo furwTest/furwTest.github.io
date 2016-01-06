@@ -38,7 +38,6 @@
 	map.addEventListener("click", function(e) {
 		var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
 		map.addOverlay(marker); //增加点
-		e.stopPropagation();
 	});
 	//拖动点
 	var marker = new BMap.Marker(point); // 创建标注
