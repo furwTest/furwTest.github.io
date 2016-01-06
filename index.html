@@ -32,6 +32,10 @@
 	// 百度地图API功能	
 	map = new BMap.Map("allmap");
 	map.centerAndZoom(new BMap.Point(116.417854, 39.921988), 15);
+	//单击获取点击的经纬度
+	map.addEventListener("click", function(e) {
+		alert(e.point.lng + "," + e.point.lat);
+	});
 	var data_info = [
 		[116.417854, 39.921988, "地址：北京市东城区王府井大街88号乐天银泰百货八层"],
 		[116.406605, 39.921585, "地址：北京市东城区东华门大街"],
