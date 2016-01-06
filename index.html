@@ -25,6 +25,8 @@
 
 	<body>
 		<div id="allmap"></div>
+		
+		<div></div>
 	</body>
 
 </html>
@@ -61,6 +63,7 @@
 		} else {
 			//添加标记
 			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
+			addClickHandler(content, marker);
 			marker.enableDragging(); // 开启拖拽
 			map.addOverlay(marker); //增加点
 		}
