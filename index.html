@@ -36,6 +36,10 @@
 	map.addEventListener("click", function(e) {
 		var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
 		map.addOverlay(marker); //增加点
+		//拖动点
+		marker.enableDragging();
+		var marker = new BMap.Marker(marker); // 创建标注
+		map.addOverlay(marker); // 将标注添加到地图中
 	});
 	var data_info = [
 		[116.417854, 39.921988, "地址：北京市东城区王府井大街88号乐天银泰百货八层"],
@@ -53,6 +57,10 @@
 		var content = data_info[i][2];
 		map.addOverlay(marker); // 将标注添加到地图中
 		addClickHandler(content, marker);
+		
+		marker.enableDragging();
+		var marker = new BMap.Marker(marker); // 创建标注
+		map.addOverlay(marker); // 将标注添加到地图中
 	}
 
 	function addClickHandler(content, marker) {
@@ -67,8 +75,4 @@
 		var infoWindow = new BMap.InfoWindow(content, opts); // 创建信息窗口对象 
 		map.openInfoWindow(infoWindow, point); //开启信息窗口
 	}
-	//拖动点
-	marker.enableDragging();
-	var marker = new BMap.Marker(point); // 创建标注
-	map.addOverlay(marker); // 将标注添加到地图中
 </script>
