@@ -53,14 +53,12 @@
 	var point = new BMap.Point(a, b);
 	map.centerAndZoom(point, 15);
 	
-	
 	//创建小狐狸
-	var pt = new BMap.Point(a, b);
 	var myIcon = new BMap.Icon("http://developer.baidu.com/map/jsdemo/img/fox.gif", new BMap.Size(300,157));
-	var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+	var marker2 = new BMap.Marker(point,{icon:myIcon});  // 创建标注
 	map.addOverlay(marker2);              // 将标注添加到地图中
-	
-	
+
+
 	//单击获取点击的经纬度
 	map.addEventListener("click", function(e) {
 		//判断点击的是 地图 还是覆盖物
