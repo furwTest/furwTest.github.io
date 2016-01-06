@@ -34,8 +34,9 @@
 	map.centerAndZoom(new BMap.Point(116.417854, 39.921988), 15);
 	//单击获取点击的经纬度
 	map.addEventListener("click", function(e) {
+		//判断点击的是 地图 还是覆盖物
 		if (e.overlay) {
-			alert('你点击的是覆盖物：' + e.overlay.toString());
+			//覆盖物 不操作
 		} else {
 			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
 			marker.enableDragging(); // 开启拖拽
