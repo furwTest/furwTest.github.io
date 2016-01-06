@@ -40,7 +40,7 @@
 			var mk = new BMap.Marker(r.point);
 			map.addOverlay(mk);
 			map.panTo(r.point);
-			//			alert('您的位置：' + r.point.lng + ',' + r.point.lat);
+//			alert('您的位置：' + r.point.lng + ',' + r.point.lat);
 			a = r.point.lng
 			b = r.point.lat
 		} else {
@@ -50,11 +50,8 @@
 		enableHighAccuracy: true
 	});
 	//初始化 并且设置地图现实 级别
-	var point = new BMap.Point(a, b);
-	point.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
-	map.centerAndZoom(point, 15);
+	map.centerAndZoom(new BMap.Point(a, b), 15);
 	
-
 	//单击获取点击的经纬度
 	map.addEventListener("click", function(e) {
 		//判断点击的是 地图 还是覆盖物
