@@ -52,6 +52,7 @@
 	//初始化 并且设置地图现实 级别
 	var point = new BMap.Point(a, b);
 	map.centerAndZoom(point, 15);
+	
 	//单击获取点击的经纬度
 	map.addEventListener("click", function(e) {
 		//判断点击的是 地图 还是覆盖物
@@ -61,12 +62,7 @@
 			//添加标记
 			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
 			marker.enableDragging(); // 开启拖拽
-			//			map.addOverlay(marker); //增加点
-			var myIcon = new BMap.Icon("http://developer.baidu.com/map/jsdemo/img/fox.gif", new BMap.Size(300, 157));
-			var marker2 = new BMap.Marker(marker, {
-				icon: myIcon
-			}); // 创建标注
-			map.addOverlay(marker2);
+			map.addOverlay(marker); //增加点
 		}
 	});
 	var data_info = [
