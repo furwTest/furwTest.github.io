@@ -29,9 +29,9 @@
 
 </html>
 <script type="text/javascript">
-	// 初始化	
+	// 创建地图容器
 	map = new BMap.Map("allmap");
-	// GPS定位		
+	// GPS定位	需要打开电脑定位， 并且需要打开Wi-Fi
 	var geolocation = new BMap.Geolocation();
 	var a;
 	var b;
@@ -49,22 +49,25 @@
 	}, {
 		enableHighAccuracy: true
 	});
+	//初始化 并且设置地图现实 级别
 	map.centerAndZoom(new BMap.Point(a, b), 15);
+	
 	//单击获取点击的经纬度
 	map.addEventListener("click", function(e) {
 		//判断点击的是 地图 还是覆盖物
 		if (e.overlay) {
 			//覆盖物 不操作
 		} else {
+			//添加标记
 			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
 			marker.enableDragging(); // 开启拖拽
 			map.addOverlay(marker); //增加点
 		}
 	});
 	var data_info = [
-		[116.217854, 39.921988, "地址：北京市东城区王府井大街88号乐天银泰百货八层"],
-		[116.206605, 39.921585, "地址：北京市东城区东华门大街"],
-		[116.212222, 39.912345, "地址：北京市东城区正义路甲5号"]
+		[116.277854, 39.931988, "地址：北京市东城区王府井大街88号乐天银泰百货八层"],
+		[116.266605, 39.931585, "地址：北京市东城区东华门大街"],
+		[116.292222, 39.932345, "地址：北京市东城区正义路甲5号"]
 	];
 	var opts = {
 		width: 250, // 信息窗口宽度
