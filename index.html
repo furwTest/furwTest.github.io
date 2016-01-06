@@ -51,13 +51,9 @@
 	});
 	//初始化 并且设置地图现实 级别
 	var point = new BMap.Point(a, b);
+	point.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
 	map.centerAndZoom(point, 15);
 	
-	//创建小狐狸
-	var myIcon = new BMap.Icon("http://developer.baidu.com/map/jsdemo/img/fox.gif", new BMap.Size(300,157));
-	var marker2 = new BMap.Marker(point,{icon:myIcon});  // 创建标注
-	map.addOverlay(marker2);              // 将标注添加到地图中
-
 
 	//单击获取点击的经纬度
 	map.addEventListener("click", function(e) {
