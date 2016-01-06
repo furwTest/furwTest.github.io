@@ -29,19 +29,17 @@
 
 </html>
 <script type="text/javascript">
-	// 初始化	
+	// 百度地图API功能	
 	map = new BMap.Map("allmap");
 	map.centerAndZoom(new BMap.Point(116.417854, 39.921988), 15);
-	//增加点
 	//单击获取点击的经纬度
 	map.addEventListener("click", function(e) {
 		var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
 		map.addOverlay(marker); //增加点
 	});
-	//拖动点
-	var marker = new BMap.Marker(point); // 创建标注
-	map.addOverlay(marker); // 将标注添加到地图中
-	//读取点
+
+	
+	
 	var data_info = [
 		[116.417854, 39.921988, "地址：北京市东城区王府井大街88号乐天银泰百货八层"],
 		[116.406605, 39.921585, "地址：北京市东城区东华门大街"],
