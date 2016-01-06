@@ -35,8 +35,8 @@
 	//单击获取点击的经纬度
 	map.addEventListener("click", function(e) {
 		var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
-		var marker = new BMap.Marker(marker);
-		marker.enableDragging(); // 开启拖拽
+//		var marker = new BMap.Marker(marker);
+//		marker.enableDragging(); // 开启拖拽
 		map.addOverlay(marker); //增加点
 	});
 	var data_info = [
@@ -53,8 +53,8 @@
 	for (var i = 0; i < data_info.length; i++) {
 		var marker = new BMap.Marker(new BMap.Point(data_info[i][0], data_info[i][1])); // 创建标注
 		var content = data_info[i][2];
-		var marker = new BMap.Marker(marker);
-		marker.enableDragging(); // 开启拖拽
+//		var marker = new BMap.Marker(marker);
+//		marker.enableDragging(); // 开启拖拽
 		map.addOverlay(marker); // 将标注添加到地图中
 		addClickHandler(content, marker);
 	}
