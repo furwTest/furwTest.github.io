@@ -52,6 +52,8 @@
 	//初始化 并且设置地图现实 级别
 	var point = new BMap.Point(a, b);
 	map.centerAndZoom(point, 15);
+	map.enableScrollWheelZoom(); //启用滚轮放大缩小，默认禁用
+	
 	//单击获取点击的经纬度
 	map.addEventListener("click", function(e) {
 		//判断点击的是 地图 还是覆盖物
