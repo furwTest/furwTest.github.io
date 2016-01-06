@@ -4,6 +4,9 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<title>百度地图Demo</title>
+		<script src="http://api.map.baidu.com/api?v=2.0&ak=IvBjpxT0GRidmqjDhGMFcQU6"></script>
+		<script src="js/jquery-2.1.0.js"></script>
 		<style type="text/css">
 			body,
 			html {
@@ -18,29 +21,28 @@
 				height: 100vh;
 			}
 		</style>
-		<script src="http://api.map.baidu.com/api?v=2.0&ak=IvBjpxT0GRidmqjDhGMFcQU6"></script>
-		<script src="js/jquery-2.1.0.js"></script>
-		<title>给多个点添加信息窗口</title>
 	</head>
 
 	<body>
+		<!--地图容器-->
 		<div id="allmap"></div>
 	</body>
 
 </html>
 <script type="text/javascript">
-	// 百度地图API功能	
+	// 初始化	
 	map = new BMap.Map("allmap");
 	map.centerAndZoom(new BMap.Point(116.417854, 39.921988), 15);
+	//增加点
 	//单击获取点击的经纬度
 	map.addEventListener("click", function(e) {
 		var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
 		map.addOverlay(marker); //增加点
-		//拖动点
-		marker.enableDragging();
-		var marker = new BMap.Marker(marker); // 创建标注
-		map.addOverlay(marker); // 将标注添加到地图中
 	});
+	//拖动点
+	var marker = new BMap.Marker(point); // 创建标注
+	map.addOverlay(marker); // 将标注添加到地图中
+	//读取点
 	var data_info = [
 		[116.417854, 39.921988, "地址：北京市东城区王府井大街88号乐天银泰百货八层"],
 		[116.406605, 39.921585, "地址：北京市东城区东华门大街"],
@@ -57,15 +59,12 @@
 		var content = data_info[i][2];
 		map.addOverlay(marker); // 将标注添加到地图中
 		addClickHandler(content, marker);
-		
-		marker.enableDragging();
-		var marker = new BMap.Marker(marker); // 创建标注
-		map.addOverlay(marker); // 将标注添加到地图中
 	}
 
 	function addClickHandler(content, marker) {
 		marker.addEventListener("click", function(e) {
-			openInfo(content, e)
+			openInfo(content, e);
+			e.stopPropagation();
 		});
 	}
 
