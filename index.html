@@ -82,7 +82,7 @@
 				searchTypes: []
 			});
 			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
-			searchInfoWindow.addEventListener("save", function(e) {
+			searchInfoWindow.addEventListener("close", function(e) {
 				alert(e.type);
 			});
 			//添加标记
