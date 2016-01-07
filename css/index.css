@@ -9,13 +9,10 @@
 }
 .info_window input{
 	margin-top: 10px;
-	width: 70%;
-	margin-left: 5%;
-	margin-right: 5%;
+	width: 80%;
+	
 }
 .info_window textarea{
 	margin-top: 30px;
-	width: 70%;
-	margin-left: 5%;
-	margin-right: 5%;
+	width: 80%;	
 }
