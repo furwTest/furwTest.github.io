@@ -65,8 +65,7 @@
 		if (e.overlay) {
 			//覆盖物 不操作
 		} else {
-			var lng = e.point.lng;
-			var lat = e.point.lat;
+			var coordinates = e.point.lng + "," + e.point.lat;
 			var content = '<div class="info"> <label>名称:</label><input type="text"/></div>' +
 				'<div class="info"><label>坐标:</label><input class="coordinates" type="text"/></div>' +
 				'<div class="info"><label>地址:</label><input type="text"/></div>' +
@@ -84,12 +83,11 @@
 				searchTypes: []
 			});
 			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
-			
 			//取消添加
 			searchInfoWindow.addEventListener("close", function(e) {
 				map.removeOverlay(marker);
 			});
-			$(".coordinates").val(lng,lat);
+			$(".coordinates").val(coordinates);
 			//非空验证
 			$(".save").click(function() {
 				alert(111);
