@@ -61,6 +61,15 @@
 		} else {
 			//添加标记
 			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
+			var searchInfoWindow2 = new BMapLib.SearchInfoWindow(map, "信息框2内容", {
+				title: "信息框2", //标题
+				panel: "panel", //检索结果面板
+				enableAutoPan: true, //自动平移
+				searchTypes: [
+					BMAPLIB_TAB_SEARCH //周边检索
+				]
+			});
+			searchInfoWindow2.open(new BMap.Point(e.point.lng, e.point.lat));
 			marker.enableDragging(); // 开启拖拽
 			map.addOverlay(marker); //增加点
 		}
