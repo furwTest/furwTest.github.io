@@ -10,3 +10,9 @@
 	height: 23px;	
 	width: 180px;
 }
+.info button{
+	width: 60px;
+	height: 30px;
+	background-color: darkseagreen;
+	margin-left: 50px;
+}
