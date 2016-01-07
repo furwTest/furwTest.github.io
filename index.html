@@ -66,10 +66,10 @@
 			//覆盖物 不操作
 		} else {
 			var coordinates = e.point.lng + "," + e.point.lat;
-			var content = '<div class="info"> <label>名称:</label><input type="text"/></div>' +
+			var content = '<div class="info"> <label>名称:</label><input class="name" type="text"/></div>' +
 				'<div class="info"><label>坐标:</label><input class="coordinates" type="text"/></div>' +
 				'<div class="info"><label>地址:</label><input type="text"/></div>' +
-				'<p class="msg">* 名称不能为空</p>' +
+				'<p class="msg"></p>' +
 				'<div class="operation"><button class="save">保存</button><button class="cancel">取消</button></div>';
 			//弹出 添加标注信息窗口
 			var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
@@ -83,6 +83,10 @@
 				searchTypes: []
 			});
 			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
+			//添加标记
+			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
+			marker.enableDragging(); // 开启拖拽
+			map.addOverlay(marker); //增加点
 			//取消添加
 			searchInfoWindow.addEventListener("close", function(e) {
 				map.removeOverlay(marker);
@@ -90,12 +94,16 @@
 			$(".coordinates").val(coordinates);
 			//非空验证
 			$(".save").click(function() {
-				alert(111);
+				if ($(".name").val() == "" || $(".name").val().length == 0) {
+					$(".msg").val("* 名称不能为空");
+				} else {
+					$(".msg").val("");
+					//添加标记
+					var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
+					marker.enableDragging(); // 开启拖拽
+					map.addOverlay(marker); //增加点
+				}
 			});
-			//添加标记
-			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
-			marker.enableDragging(); // 开启拖拽
-			map.addOverlay(marker); //增加点
 			//取消添加
 			$(".cancel").click(function() {
 				searchInfoWindow.close();
