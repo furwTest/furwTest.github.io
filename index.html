@@ -63,16 +63,26 @@
 		} else {
 			//添加标记
 			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
-			var searchInfoWindow = new BMapLib.SearchInfoWindow(map, "信息框3内容", {
-				title: "新增", //标题
-				width: 200, //宽度
-				height: 100, //高度
-				panel: "panel", //检索结果面板
-				enableAutoPan: false, //自动平移
-				enableMessage: false,
-				searchTypes: []
-			});
-			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
+			//			var searchInfoWindow = new BMapLib.SearchInfoWindow(map, "信息框3内容", {
+			//				title: "新增", //标题
+			//				width: 200, //宽度
+			//				height: 100, //高度
+			//				panel: "panel", //检索结果面板
+			//				enableAutoPan: true, //自动平移
+			//				enableMessage: false,
+			//				searchTypes: []
+			//			});
+			//			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
+				var opts = {
+		width: 250, // 信息窗口宽度
+		height: 80, // 信息窗口高度
+		title: "信息窗口", // 信息窗口标题
+		enableMessage: true //设置允许信息窗发送短息
+	};
+			var infoWindow = new BMap.InfoWindow("aaaa", opts); // 创建信息窗口对象
+			map.openInfoWindow(infoWindow, point); //开启信息窗口
+			
+			
 			marker.enableDragging(); // 开启拖拽
 			map.addOverlay(marker); //增加点
 		}
