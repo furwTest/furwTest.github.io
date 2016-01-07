@@ -87,13 +87,17 @@
 			});
 			//非空验证
 			$(".save").click(function() {
-				//添加标记
-				var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
-				marker.enableDragging(); // 开启拖拽
-				map.addOverlay(marker); //增加点
+				alert(111);
 			});
-			//取消添加
+			//添加标记
+			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
+			marker.enableDragging(); // 开启拖拽
+			map.addOverlay(marker); //增加点
 			
+			//取消添加
+			$(".cancel").click(function() {
+				map.removeOverlay(marker);
+			});
 		}
 	});
 	var data_info = [
