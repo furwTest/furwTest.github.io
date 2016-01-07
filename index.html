@@ -61,19 +61,23 @@
 		if (e.overlay) {
 			//覆盖物 不操作
 		} else {
-			//添加标记
-			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
-			var searchInfoWindow = new BMapLib.SearchInfoWindow(map, "信息框3内容", {
+			var content = '<label>名称</label><input type="text"/>';
+				
+				
+			//弹出 添加标注信息窗口
+			var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
 				title: "新增", //标题
 				width: 200, //宽度
 				height: 100, //高度
 				panel: "panel", //检索结果面板
 				enableAutoPan: true, //自动平移
 				enableMessage: false,
-				enableSendToPhone: false,
+				enableSendToPhone: false, //去掉发送到手机 小图标
 				searchTypes: []
 			});
 			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
+			//添加标记
+			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
 			marker.enableDragging(); // 开启拖拽
 			map.addOverlay(marker); //增加点
 		}
