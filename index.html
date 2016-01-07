@@ -54,16 +54,20 @@
 		if (e.overlay) {
 			//覆盖物 不操作
 		} else {
+			//坐标
 			var coordinates = e.point.lng + "," + e.point.lat;
+			//地址
+			var address;
+			//获取当前点击地址
 			var geoc = new BMap.Geocoder();
 			var pt = e.point;
 			geoc.getLocation(pt, function(rs) {
 				var addComp = rs.addressComponents;
-				alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+				address = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
 			});
 			var content = '<div class="info"> <label>名称:</label><input class="name" type="text"/></div>' +
 				'<div class="info"><label>坐标:</label><input class="coordinates" type="text"/></div>' +
-				'<div class="info"><label>地址:</label><input type="text"/></div>' +
+				'<div class="info"><label>地址:</label><input class="address" type="text"/></div>' +
 				'<p class="msg"></p>' +
 				'<div class="operation"><button class="save">保存</button><button class="cancel">取消</button></div>';
 			//弹出 添加标注信息窗口
@@ -88,6 +92,9 @@
 			});
 			//获取当前坐标
 			$(".coordinates").val(coordinates);
+			//获取当前地址
+			$(".address").val(address);
+			
 			//非空验证
 			$(".save").click(function() {
 				if ($(".name").val() == "" || $(".name").val().length == 0) {
