@@ -10,6 +10,11 @@
 	height: 23px;	
 	width: 180px;
 }
+.msg{
+	width: 100%;
+	height: 25px;
+	border: 1px solid red;
+}
 .info button{
 	width: 60px;
 	height: 27px;
@@ -18,4 +23,5 @@
 	color: whitesmoke;
 	border-radius: 10px;
 	margin-left: 35px;
+	cursor: pointer;
 }
