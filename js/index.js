@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$(".save").click(function() {
+	function save() {
 		alert(11);
-	});
+	}
 });
