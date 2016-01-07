@@ -5,12 +5,16 @@
 }
 .info_window label{
 	text-align: center;
-	width: 50px;
+	width: 20%;
 	border: 1px solid red;
 }
 .info_window input{
-	width: 130px;
+	width: 70%;
+	margin-left: 5%;
+	margin-right: 5%;
 }
 .info_window textarea{
-	width: 130px;
+	width: 70%;
+	margin-left: 5%;
+	margin-right: 5%;
 }
