@@ -6,6 +6,7 @@
 .info_window label{
 	text-align: center;
 	width: 50px;
+	border: 1px solid red;
 }
 .info_window input{
 	width: 130px;
