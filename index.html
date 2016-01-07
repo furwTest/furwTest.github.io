@@ -85,7 +85,9 @@
 			searchInfoWindow.addEventListener("close", function(e) {
 				alert(e);
 			});
-			//添加标记
+			$(".save").click(function() {
+					alert(111);
+				}) //添加标记
 			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
 			marker.enableDragging(); // 开启拖拽
 			map.addOverlay(marker); //增加点
