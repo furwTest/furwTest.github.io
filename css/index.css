@@ -24,11 +24,11 @@
 }
 
 .operation button {
+	margin: 0px;
 	width: 60px;
 	height: 27px;
 	background-color: darkseagreen;
 	border: 0px;
-	border: 1px solid red;
 	color: whitesmoke;
 	border-radius: 10px;
 	margin-left: 35px;
