@@ -69,7 +69,7 @@
 				'<div class="info"><label>坐标:</label><input type="text"/></div>' +
 				'<div class="info"><label>地址:</label><input type="text"/></div>' +
 				'<p class="msg">* 名称不能为空</p>' +
-				'<div class="operation"><button class="save" onclick="alert(111)">保存</button><button class="cancel">取消</button></div>';
+				'<div class="operation"><button class="save">保存</button><button class="cancel">取消</button></div>';
 			//弹出 添加标注信息窗口
 			var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
 				title: "新增", //标题
@@ -83,16 +83,12 @@
 			});
 			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
 			searchInfoWindow.addEventListener("close", function(e) {
-				alert(e.type);
+				alert(e);
 			});
 			//添加标记
 			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
 			marker.enableDragging(); // 开启拖拽
 			map.addOverlay(marker); //增加点
-		}
-
-		function save() {
-			alert(11);
 		}
 	});
 	var data_info = [
