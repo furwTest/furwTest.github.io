@@ -1,11 +1,11 @@
 .info{
 	width: 100%;
-	margin-top: 10px;
+	margin-top: 5px;
 }
 .info label{
 	margin-right: 15px;
 }
 
 .info input{
-	height: 30px;	
+	height: 25px;	
 }
