@@ -95,9 +95,9 @@
 			//非空验证
 			$(".save").click(function() {
 				if ($(".name").val() == "" || $(".name").val().length == 0) {
+					alert(11);
 					$(".msg").val("* 名称不能为空");
 				} else {
-					$(".msg").val("");
 					//添加标记
 					var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
 					marker.enableDragging(); // 开启拖拽
