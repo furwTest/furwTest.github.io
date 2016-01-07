@@ -82,8 +82,8 @@
 				searchTypes: []
 			});
 			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
-			content.addEventListener("click", function() {
-				alert(11);
+			searchInfoWindow.addEventListener("save", function(e) {
+				alert(e.type);
 			});
 			//添加标记
 			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
