@@ -98,8 +98,9 @@
 					$(".msg").html("* 名称不能为空");
 					$(".name").css("border","1px solid red");
 				} else {
+					alert(111);
 					$(".msg").html(" ");
-					$(".name").css();
+					$(".name").css("");
 					//添加标记
 					var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
 					marker.enableDragging(); // 开启拖拽
