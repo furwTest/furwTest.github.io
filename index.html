@@ -72,9 +72,6 @@
 				enableSendToPhone: false, //去掉发送到手机 小图标
 				searchTypes: []
 			});
-			$("button").focus(function() {
-				this.blur();
-			})
 			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
 			//添加标记
 			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
