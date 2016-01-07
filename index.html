@@ -20,7 +20,6 @@
 		</style>
 		<script src="http://api.map.baidu.com/api?v=2.0&ak=IvBjpxT0GRidmqjDhGMFcQU6"></script>
 		<script src="js/jquery-2.1.0.js"></script>
-		<script src="js/index.js" ></script>
 		<script src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
 		<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
 		<link rel="stylesheet" href="css/index.css" />
@@ -32,6 +31,9 @@
 	</body>
 
 </html>
+
+<script src="js/index.js"></script>
+
 <script type="text/javascript">
 	// 创建地图容器
 	map = new BMap.Map("allmap");
@@ -63,13 +65,11 @@
 		if (e.overlay) {
 			//覆盖物 不操作
 		} else {
-			var content = '<div class="info"> <label>名称:</label><input type="text"/></div>'+
-			'<div class="info"><label>坐标:</label><input type="text"/></div>'+
-			'<div class="info"><label>地址:</label><input type="text"/></div>'+
-			'<p class="msg">* 名称不能为空</p>'+
-			'<div class="operation"><button class="save">保存</button><button class="cancel">取消</button></div>';
-				
-			
+			var content = '<div class="info"> <label>名称:</label><input type="text"/></div>' +
+				'<div class="info"><label>坐标:</label><input type="text"/></div>' +
+				'<div class="info"><label>地址:</label><input type="text"/></div>' +
+				'<p class="msg">* 名称不能为空</p>' +
+				'<div class="operation"><button class="save">保存</button><button class="cancel">取消</button></div>';
 			//弹出 添加标注信息窗口
 			var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
 				title: "新增", //标题
