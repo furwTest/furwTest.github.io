@@ -6,14 +6,17 @@
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 		<title>百度地图 </title>
 		<script src="js/jquery-2.1.0.js"></script>
+		<!--引用百度API-->
 		<script src="http://api.map.baidu.com/api?v=2.0&ak=IvBjpxT0GRidmqjDhGMFcQU6"></script>
 		<script src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
 		<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
+		<!--外部样式表-->
 		<link rel="stylesheet" href="css/index.css" />
 
 	</head>
 
 	<body>
+		<!--地图容器-->
 		<div id="allmap"></div>
 	</body>
 
@@ -33,7 +36,6 @@
 			var mk = new BMap.Marker(r.point);
 			map.addOverlay(mk);
 			map.panTo(r.point);
-			//			alert('您的位置：' + r.point.lng + ',' + r.point.lat);
 			a = r.point.lng
 			b = r.point.lat
 		} else {
@@ -78,6 +80,7 @@
 			searchInfoWindow.addEventListener("close", function(e) {
 				map.removeOverlay(marker);
 			});
+			//获取当前坐标
 			$(".coordinates").val(coordinates);
 			//非空验证
 			$(".save").click(function() {
@@ -100,6 +103,7 @@
 			});
 		}
 	});
+	//读取店家信息 并添加到地图上 生成标记
 	var data_info = [
 		[116.277854, 39.931988, "地址：北京市东城区王府井大街88号乐天银泰百货八层"],
 		[116.266605, 39.931585, "地址：北京市东城区东华门大街"],
