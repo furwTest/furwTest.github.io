@@ -1,0 +1,17 @@
+.info_window{
+	width: 200px;
+	height: 180px;
+	border: 1px solid red;
+}
+.info_window label{
+	text-align: center;
+	width: 50px;
+}
+.info_window input{
+	width: 130px;
+	margin-left: 10px;
+}
+.info_window textarea{
+	width: 130px;
+	margin-left: 10px;
+}
