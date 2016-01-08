@@ -119,6 +119,7 @@
 					dataBase.transaction(function(tx) {
 						tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES( ? , ? , ? ,?)', [shop, e.point.lng, e.point.lat, "地址:" + address1]);
 					});
+					select();
 					var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
 					marker.enableDragging(); // 开启拖拽
 					map.addOverlay(marker); //增加点
@@ -138,22 +139,25 @@
 		title: "信息窗口", // 信息窗口标题
 		enableMessage: true //设置允许信息窗发送短息
 	};
+	select();
 	//查询数据	
-	dataBase.transaction(function(tx) {
-		tx.executeSql('SELECT * FROM LOGS', [],
-			function(tx, results) {
-				var len1 = results.rows.length,
-					j;
-				for (j = 0; j < len1; j++) {
-					$(".list").append("<li>" + results.rows.item(j).id + "," + results.rows.item(j).log + "</li>")
-					var marker = new BMap.Marker(new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat)); // 创建标注
-					var content = results.rows.item(j).address;
-					marker.enableDragging(); // 开启拖拽
-					map.addOverlay(marker); // 将标注添加到地图中
-					addClickHandler(content, marker);
-				}
-			}, null);
-	});
+	function select() {
+		dataBase.transaction(function(tx) {
+			tx.executeSql('SELECT * FROM LOGS', [],
+				function(tx, results) {
+					var len1 = results.rows.length,
+						j;
+					for (j = 0; j < len1; j++) {
+						$(".list").append("<li>" + results.rows.item(j).id + "," + results.rows.item(j).log + "</li>")
+						var marker = new BMap.Marker(new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat)); // 创建标注
+						var content = results.rows.item(j).address;
+						marker.enableDragging(); // 开启拖拽
+						map.addOverlay(marker); // 将标注添加到地图中
+						addClickHandler(content, marker);
+					}
+				}, null);
+		});
+	}
 
 	function addClickHandler(content, marker) {
 		marker.addEventListener("click", function(e) {
