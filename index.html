@@ -125,6 +125,7 @@
 								for (j = 0; j < len1; j++) {
 									if (results.rows.item(j).name == shop) {
 										$(".msg").html("* 店铺名称已经存在，请重新命名!");
+										return;
 									} else {
 										$(".msg").html("");
 										//如果店铺不存在 添加新的店铺
@@ -136,6 +137,7 @@
 										marker.enableDragging(); // 开启拖拽
 										map.addOverlay(marker); //增加点
 										searchInfoWindow.close(); //保存标记后 关闭窗口
+										return;
 									}
 								}
 							}, null);
