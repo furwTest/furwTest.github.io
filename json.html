@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>json</title>
+		<script>
+			var json_data = [{
+				id: 12,
+				name: "yang",
+				email: "aaa@aaa.com"
+			}, {
+				id: 13,	
+				name: "yang3",
+				email: "aaa3@aaa.com"
+			}, {
+				id: 13,	
+				name: "yang3",
+				email: "aaa3@aaa.com"
+			}];
+			
+			var storage = window.localStorage;
+			
+			storage.setItem("json_data", JSON.stringify(json_data));
+			
+			var json_data = JSON.parse(storage.getItem("json_data"));
+			
+			for (var i = 0; i < json_data.length; i++) {
+				alert(json_data[i].id);
+			}
+		</script>
+	</head>
+
+	<body>
+
+	</body>
+
+</html>

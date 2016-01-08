@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>web database</title>
+		<script src="js/jquery-2.1.0.js"></script>
+		<script>
+			var e_id = 3;
+			var e_log = "北京市海淀区";
+			//创建并打开数据库
+			var dataBase = openDatabase("sales_address", "1.0", "店铺位置表", 1024 * 1024);
+			if (!dataBase) {
+				alert("数据库创建失败！");
+			} else {
+				//alert("数据库创建成功！");
+			}
+			//创建表
+			dataBase.transaction(function(tx) {
+				tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (id unique, log)');
+			});
+			//添加数据
+			dataBase.transaction(function(tx) {
+				tx.executeSql('INSERT INTO LOGS (id, log) VALUES (1, "菜鸟教程")');
+				tx.executeSql('INSERT INTO LOGS (id, log) VALUES (2, "www.runoob.com")');
+				tx.executeSql('INSERT INTO LOGS (id, log) VALUES( ? , ? )', [e_id, e_log]);
+			});
+			//动态添加数据
+			var i = 4;
+
+			function add() {
+				i = i + 1;
+				dataBase.transaction(function(tx) {
+					tx.executeSql('INSERT INTO LOGS (id, log) VALUES( ? , ? )', [i, e_log + i]);
+				});
+				show();
+			}
+			//将添加的数据显示在页面
+			function show() {
+				$(".list").html("");
+				//查询数据
+				dataBase.transaction(function(tx) {
+					tx.executeSql('SELECT * FROM LOGS', [],
+						function(tx, results) {
+							var len1 = results.rows.length,
+								j;
+							for (j = 0; j < len1; j++) {
+								$(".list").append("<li>" + results.rows.item(j).id +  "," +  results.rows.item(j).log + "</li>")
+							}
+						}, null);
+				});
+			}
+			//删除指定数据
+			//			dataBase.transaction(function(tx) {
+			//				tx.executeSql('delete from logs where id=?', [2]);
+			//			});
+		</script>
+	</head>
+
+	<style>
+		button {
+			width: 100px;
+			height: 50px;
+		}
+	</style>
+
+	<body>
+		<button onclick="add()">添加一条数据</button>
+		<ul class="list"></ul>
+	</body>
+
+</html>

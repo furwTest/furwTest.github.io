@@ -25,6 +25,18 @@
 <script src="js/index.js"></script>
 
 <script type="text/javascript">
+	//打开数据库 如果数据库 不存在将创建数据库
+	var dataBase = openDatabase("sales_address", "1.0", "店铺位置表", 1024 * 1024);
+	//创建表
+	dataBase.transaction(function(tx) {
+		tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (name unique, lon, lat, address)');
+	});
+	//添加默认数据
+	dataBase.transaction(function(tx) {
+		tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES ("店铺 A", 116.277854 , 39.931988, "地址：北京市东城区王府井大街88号乐天银泰百货八层")');
+		tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES ("店铺 B", 116.266605 , 39.931585, "地址：北京市东城区东华门大街")');
+		tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES ("店铺 C", 116.292222 , 39.932345, "地址：北京市东城区正义路甲5号S")');
+	});
 	// 创建地图容器
 	map = new BMap.Map("allmap");
 	// GPS定位	需要打开电脑定位， 并且需要打开Wi-Fi
@@ -115,25 +127,28 @@
 			});
 		}
 	});
-	//读取店家信息 并添加到地图上 生成标记
-	var data_info = [
-		[116.277854, 39.931988, "地址：北京市东城区王府井大街88号乐天银泰百货八层"],
-		[116.266605, 39.931585, "地址：北京市东城区东华门大街"],
-		[116.292222, 39.932345, "地址：北京市东城区正义路甲5号"]
-	];
 	var opts = {
 		width: 250, // 信息窗口宽度
 		height: 80, // 信息窗口高度
 		title: "信息窗口", // 信息窗口标题
 		enableMessage: true //设置允许信息窗发送短息
 	};
-	for (var i = 0; i < data_info.length; i++) {
-		var marker = new BMap.Marker(new BMap.Point(data_info[i][0], data_info[i][1])); // 创建标注
-		var content = data_info[i][2];
-		marker.enableDragging(); // 开启拖拽
-		map.addOverlay(marker); // 将标注添加到地图中
-		addClickHandler(content, marker);
-	}
+	//查询数据
+	dataBase.transaction(function(tx) {
+		tx.executeSql('SELECT * FROM LOGS', [],
+			function(tx, results) {
+				var len1 = results.rows.length,
+					j;
+				for (j = 0; j < len1; j++) {
+					$(".list").append("<li>" + results.rows.item(j).id + "," + results.rows.item(j).log + "</li>")
+					var marker = new BMap.Marker(new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat)); // 创建标注
+					var content = results.rows.item(j).address;
+					marker.enableDragging(); // 开启拖拽
+					map.addOverlay(marker); // 将标注添加到地图中
+					addClickHandler(content, marker);
+				}
+			}, null);
+	});
 
 	function addClickHandler(content, marker) {
 		marker.addEventListener("click", function(e) {
