@@ -135,9 +135,7 @@
 			});
 		}
 	});
-	
-	var template='<p class="dz"></p><button class="delete">删除</button>';
-	
+	var template = '<p class="dz"></p><button class="delete">删除</button>';
 	var opts = {
 		width: 250, // 信息窗口宽度
 		height: 80, // 信息窗口高度
@@ -147,6 +145,7 @@
 	select();
 	//查询数据	
 	var dizhi;
+
 	function select() {
 		dataBase.transaction(function(tx) {
 			tx.executeSql('SELECT * FROM LOGS', [],
@@ -166,6 +165,7 @@
 
 	function addClickHandler(template, marker) {
 		marker.addEventListener("click", function(e) {
+			$(".dz").html(dizhi);
 			openInfo(template, e);
 		});
 	}
@@ -174,9 +174,6 @@
 		var p = e.target;
 		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
 		var infoWindow = new BMap.InfoWindow(template, opts); // 创建信息窗口对象 
-		
-		$(".dz").html(dizhi);
-		
 		map.openInfoWindow(infoWindow, point); //开启信息窗口
 	}
 </script>
