@@ -4,7 +4,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-		<title>百度地图 demo</title>
+		<title>百度地图 </title>
 		<script src="js/jquery-2.1.0.js"></script>
 		<!--引用百度API-->
 		<script src="http://api.map.baidu.com/api?v=2.0&ak=IvBjpxT0GRidmqjDhGMFcQU6"></script>
@@ -34,8 +34,8 @@
 	//添加默认数据
 	dataBase.transaction(function(tx) {
 		tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES ("店铺 A", 116.277854 , 39.931988, "地址：北京市东城区王府井大街88号乐天银泰百货八层")');
-		tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES ("店铺 B", 116.266605 , 39.929585, "地址：北京市东城区东华门大街")');
-		tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES ("店铺 C", 116.292222 , 39.940345, "地址：北京市东城区正义路甲5号")');
+		tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES ("店铺 B", 116.266605 , 39.931585, "地址：北京市东城区东华门大街")');
+		tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES ("店铺 C", 116.292222 , 39.932345, "地址：北京市东城区正义路甲5号S")');
 	});
 	// 创建地图容器
 	map = new BMap.Map("allmap");
