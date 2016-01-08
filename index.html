@@ -113,35 +113,19 @@
 					$(".name").css("border", "2px solid red");
 				} else {
 					$(".msg").html("");
-					//添加标记
 					var shop = $(".name").val();
 					var address1 = $(".address").val();
-					//查询数据库 商店名称， 验证店铺名称是否存在重复，
+					//添加标记内容
 					dataBase.transaction(function(tx) {
-						tx.executeSql('SELECT * FROM LOGS', [],
-							function(tx, results) {
-								var len1 = results.rows.length,
-									j;
-								for (j = 0; j < len1; j++) {
-									if (results.rows.item(j).name == shop) {
-										$(".msg").html("* 店铺名称已经存在，请重新命名!");
-										return;
-									} else {
-										$(".msg").html("");
-										//如果店铺不存在 添加新的店铺
-										dataBase.transaction(function(tx) {
-											tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES( ? , ? , ? ,?)', [shop, e.point.lng, e.point.lat, "地址:" + address1]);
-										});
-										select();
-										var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
-										marker.enableDragging(); // 开启拖拽
-										map.addOverlay(marker); //增加点
-										searchInfoWindow.close(); //保存标记后 关闭窗口
-										return;
-									}
-								}
-							}, null);
-					}); //店铺名称校验结束
+						tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES( ? , ? , ? ,?)', [shop, e.point.lng, e.point.lat, "地址：" + address1]);
+					});
+					//回调
+					select();
+					//添加标记
+					var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
+					marker.enableDragging(); // 开启拖拽
+					map.addOverlay(marker); //增加点
+					searchInfoWindow.close(); //保存标记后 关闭窗口
 				}
 			});
 			//取消添加
@@ -174,7 +158,8 @@
 					}
 				}, null);
 		});
-	} //查询数据结束	
+	}
+
 	function addClickHandler(content, marker) {
 		marker.addEventListener("click", function(e) {
 			openInfo(content, e);
