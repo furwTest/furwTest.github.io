@@ -165,12 +165,13 @@
 
 	function addClickHandler(template, marker) {
 		marker.addEventListener("click", function(e) {
-			$(".dz").html(dizhi);
 			openInfo(template, e);
 		});
 	}
 
 	function openInfo(template, e) {
+		alert(dizhi);
+		$(".dz").html(dizhi);
 		var p = e.target;
 		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
 		var infoWindow = new BMap.InfoWindow(template, opts); // 创建信息窗口对象 
