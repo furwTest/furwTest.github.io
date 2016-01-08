@@ -114,6 +114,8 @@
 				} else {
 					$(".msg").html("");
 					//添加标记
+					
+					alert($(".name").html());
 					dataBase.transaction(function(tx) {
 						tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES( ? , ? , ? ,?)', ["店铺", e.point.lng, e.point.lat, "北京市 美丽园中路"]);
 					});
