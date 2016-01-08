@@ -117,7 +117,7 @@
 					var address1 = $(".address").val();
 					//添加标记内容
 					dataBase.transaction(function(tx) {
-						tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES( ? , ? , ? ,?)', [shop, e.point.lng, e.point.lat, "地址：" + address1]);
+						tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES( ? , ? , ? ,?)', [shop, e.point.lng, e.point.lat, "地址:" + address1]);
 					});
 					//回调
 					select();
@@ -135,7 +135,6 @@
 			});
 		}
 	});
-	var template = '<p class="dz"></p><button class="delete">删除</button>';
 	var opts = {
 		width: 250, // 信息窗口宽度
 		height: 80, // 信息窗口高度
@@ -144,8 +143,6 @@
 	};
 	select();
 	//查询数据	
-	var dizhi;
-
 	function select() {
 		dataBase.transaction(function(tx) {
 			tx.executeSql('SELECT * FROM LOGS', [],
@@ -154,27 +151,25 @@
 						j;
 					for (j = 0; j < len1; j++) {
 						var marker = new BMap.Marker(new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat)); // 创建标注
-						dizhi = results.rows.item(j).address;
-						alert(dizhi);
+						var content = results.rows.item(j).address;
 						marker.enableDragging(); // 开启拖拽
 						map.addOverlay(marker); // 将标注添加到地图中
-						addClickHandler(template, marker);
+						addClickHandler(content, marker);
 					}
 				}, null);
 		});
 	}
 
-	function addClickHandler(template, marker) {
+	function addClickHandler(content, marker) {
 		marker.addEventListener("click", function(e) {
-			openInfo(template, e);
+			openInfo(content, e);
 		});
 	}
 
-	function openInfo(template, e) {
-		$(".dz").html(dizhi);
+	function openInfo(content, e) {
 		var p = e.target;
 		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
-		var infoWindow = new BMap.InfoWindow(template, opts); // 创建信息窗口对象 
+		var infoWindow = new BMap.InfoWindow(content, opts); // 创建信息窗口对象 
 		map.openInfoWindow(infoWindow, point); //开启信息窗口
 	}
 </script>
