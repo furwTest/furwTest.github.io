@@ -135,6 +135,7 @@
 			});
 		}
 	});
+	var template = '<p class="dz"></p><button class="delete">删除</button>';
 	var opts = {
 		width: 250, // 信息窗口宽度
 		height: 80, // 信息窗口高度
@@ -143,6 +144,7 @@
 	};
 	select();
 	//查询数据	
+	var dizhi;
 
 	function select() {
 		dataBase.transaction(function(tx) {
@@ -152,7 +154,8 @@
 						j;
 					for (j = 0; j < len1; j++) {
 						var marker = new BMap.Marker(new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat)); // 创建标注
-						var template = '<p class="dz">+ results.rows.item(j).address +</p><button class="delete">删除</button>';
+						dizhi = results.rows.item(j).address;
+						alert(dizhi);
 						marker.enableDragging(); // 开启拖拽
 						map.addOverlay(marker); // 将标注添加到地图中
 						addClickHandler(template, marker);
@@ -168,7 +171,6 @@
 	}
 
 	function openInfo(template, e) {
-		alert(dizhi);
 		$(".dz").html(dizhi);
 		var p = e.target;
 		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
