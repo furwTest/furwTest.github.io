@@ -170,7 +170,7 @@
 
 	function addClickHandler(name, content, marker, point, infoWindow) {
 		marker.addEventListener("click", function(e) {
-			openInfo(content, e, point, infoWindow);
+			openInfo(name,content, e, point, infoWindow);
 		});
 	}
 
