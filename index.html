@@ -162,25 +162,23 @@
 
 	function addClickHandler(content, marker) {
 		marker.addEventListener("click", function(e) {
-			openInfo(content, e);
-		});
-	}
-
-	function openInfo(content, e) {
-		alert(7);
-		var body = "<div class='address'></div> <button class='delete' onclick='del()'>删除</button>";
+			
+			var body = "<div class='address'></div> <button class='delete'>删除</button>";
 		var p = e.target;
 		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
 		var infoWindow = new BMap.InfoWindow(body, opts);
 		// 创建信息窗口对象
 		map.openInfoWindow(infoWindow, point);
-
-		function del() {
-			alert(123);
-		};
 		//开启信息窗口
 		$(".delete").click(function() {
 			alert(11);
 		});
+			
+			
+		});
+	}
+
+	function openInfo(content, e) {
+		
 	}
 </script>
