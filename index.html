@@ -168,18 +168,18 @@
 
 	function openInfo(content, e) {
 		var body = "<div class='address'></div> <button class='delete'>删除</button>";
+		$('.delete').bind("click", function() {
+			del();
+		});
 		var p = e.target;
 		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
 		var infoWindow = new BMap.InfoWindow(body, opts);
 		// 创建信息窗口对象
 		map.openInfoWindow(infoWindow, point);
-		$('.delete').bind("click", function() {
-			del();
-		})
 		$(".address").html(content);
 		//开启信息窗口
 		function del() {
-			alert(135);
+			alert(136);
 		}
 	}
 </script>
