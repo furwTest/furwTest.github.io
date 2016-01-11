@@ -143,7 +143,7 @@
 	};
 	select();
 	
-	var body ="<div class='address'></div> 	<button class="delete">删除</button>";
+	var body ="<div class='address'></div> <button class='delete'>删除</button>";
 	
 	//查询数据	
 	function select() {
@@ -172,7 +172,7 @@
 	function openInfo(body, content, e) {
 		var p = e.target;
 		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
-		var infoWindow = new BMap.InfoWindow(body, opts); // 创建信息窗口对象 
+		var infoWindow = new BMap.InfoWindow(content, opts); // 创建信息窗口对象 
 		map.openInfoWindow(infoWindow, point); //开启信息窗口
 	}
 </script>
