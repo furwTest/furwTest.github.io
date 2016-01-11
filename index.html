@@ -152,13 +152,15 @@
 					for (j = 0; j < len1; j++) {
 						var marker = new BMap.Marker(new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat)); // 创建标注
 						var content = results.rows.item(j).address;
-						marker.enableDragging(); // 开启拖拽
-						map.addOverlay(marker); // 将标注添加到地图中
-						//注册店家地址窗口
+						// 开启拖拽
+						marker.enableDragging();
+						// 将标注添加到地图中
+						map.addOverlay(marker);
+						//创建信息窗口对象
 						var body = "<div class='address'></div> <button class='delete'>删除</button>";
 						var point = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
 						var infoWindow = new BMap.InfoWindow(body, opts);
-						//将标注添加到地图
+						//将信息窗口加到地图
 						addClickHandler(content, marker, point, infoWindow);
 					}
 				}, null);
@@ -172,21 +174,11 @@
 	}
 
 	function openInfo(content, e, point, infoWindow) {
-		//		var body = "<div class='address'></div> <button class='delete'>删除</button>";
-		//		var p = e.target;
-		//		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
-		//		var infoWindow = new BMap.InfoWindow(body, opts);
-		// 创建信息窗口对象
-		map.openInfoWindow(infoWindow, point);
 		//开启信息窗口
+		map.openInfoWindow(infoWindow, point);
+		$(".address").html(content);
 		$(".delete").click(function() {
-			alert(136);
+			alert("删除");
 		});
-	}
-
-	function del() {
-		$(".delete").click(function() {
-			alert(1234);
-		})
 	}
 </script>
