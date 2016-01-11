@@ -184,6 +184,8 @@
 				dataBase.transaction(function(tx) {
 					tx.executeSql('delete from logs where name=?', [shopname]);
 				});
+				infoWindow.close();
+				map.removeOverlay(e);
 				return true;
 			} else {
 				return false;
