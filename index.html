@@ -119,15 +119,13 @@
 					dataBase.transaction(function(tx) {
 						tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES( ? , ? , ? ,?)', [shop, e.point.lng, e.point.lat, "地址:" + address1]);
 					});
-					map.removeOverlay(marker);
-					//回调 (添加到数据库，然后取出展示到页面)
-					searchInfoWindow.close(); //保存标记后 关闭窗口î
-					select();
+					searchInfoWindow.close(); //保存标记后 关闭窗口
+					select(); //回调 (添加到数据库，然后取出展示到页面)
+					map.removeOverlay(marker); //删除临时标记
 					//添加标记
 					//					var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
 					//					marker.enableDragging(); // 开启拖拽
 					//					map.addOverlay(marker); //增加点
-					
 				}
 			});
 			//取消添加
@@ -187,8 +185,7 @@
 					tx.executeSql('delete from logs where name=?', [shopname]);
 				});
 				infoWindow.close();
-				map.removeOverlay(marker);
-				return false;
+				map.removeOverlay(marker);Ï
 			} else {
 				return false;
 			}
