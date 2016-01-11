@@ -170,11 +170,11 @@
 
 	function addClickHandler(shopname, content, marker, point, infoWindow) {
 		marker.addEventListener("click", function(e) {
-			openInfo(shopname, content, e, point, infoWindow);
+			openInfo(shopname, content, e, point, infoWindow, marker);
 		});
 	}
 
-	function openInfo(shopname, content, e, point, infoWindow) {
+	function openInfo(shopname, content, e, point, infoWindow, marker) {
 		//开启信息窗口
 		map.openInfoWindow(infoWindow, point);
 		$(".address_1").html(content);
@@ -185,7 +185,7 @@
 					tx.executeSql('delete from logs where name=?', [shopname]);
 				});
 				infoWindow.close();
-				map.removeOverlay(e);
+				map.removeOverlay(marker);
 				return true;
 			} else {
 				return false;
