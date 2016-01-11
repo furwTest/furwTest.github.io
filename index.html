@@ -126,6 +126,19 @@
 					marker.enableDragging(); // 开启拖拽
 					map.addOverlay(marker); //增加点
 					searchInfoWindow.close(); //保存标记后 关闭窗口
+					//删除
+					$(".delete").click(function() {
+						if (window.confirm('你确定要取消交易吗？')) {
+							dataBase.transaction(function(tx) {
+								tx.executeSql('delete from logs where name=?', [shopname]);
+							});
+							searchInfoWindow.close();
+							map.removeOverlay(marker);
+							return true;
+						} else {
+							return false;
+						}
+					}); //删除结束
 				}
 			});
 			//取消添加
