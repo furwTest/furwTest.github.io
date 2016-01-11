@@ -142,9 +142,7 @@
 		enableMessage: true //设置允许信息窗发送短息
 	};
 	select();
-	
-	var body ="<div class='address'></div> <button class='delete'>删除</button>";
-	
+	var body = "<div class='address'></div> <button class='delete'>删除</button>";
 	//查询数据	
 	function select() {
 		dataBase.transaction(function(tx) {
@@ -172,12 +170,11 @@
 	function openInfo(body, content, e) {
 		var p = e.target;
 		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
-		var infoWindow = new BMap.InfoWindow(body, opts); // 创建信息窗口对象 
-		
-		$(".delete").click(function(){
-			alert(1);
-		})
-		
+		var infoWindow = new BMap.InfoWindow(body, opts, function() {
+			$(".delete").click(function() {
+				alert(1);
+			})
+		}); // 创建信息窗口对象
 		map.openInfoWindow(infoWindow, point); //开启信息窗口
 	}
 </script>
