@@ -173,10 +173,13 @@
 		var infoWindow = new BMap.InfoWindow(body, opts);
 		// 创建信息窗口对象
 		map.openInfoWindow(infoWindow, point);
+		$('#delete').bind("click", function() {
+			del();
+		})
 		$(".address").html(content);
 		//开启信息窗口
-		$('.delete').on('click', function() {
-			alert(111)
-		});
+		function del() {
+			alert(135);
+		}
 	}
 </script>
