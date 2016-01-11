@@ -171,6 +171,7 @@
 		var p = e.target;
 		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
 		var infoWindow = new BMap.InfoWindow(body, opts, function() {
+			alert(11);
 			$(".delete").click(function() {
 				alert(1);
 			})
