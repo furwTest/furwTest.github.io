@@ -62,7 +62,7 @@ textarea {
 	color: #FF4500;
 }
 
-.address {
+.address_1 {
 	margin-top: 10px;
 }
 
@@ -70,14 +70,15 @@ textarea {
 	width: 60px;
 	height: 28px;
 	margin-top: 10px;
+	margin-top: 15px;
+	color: whitesmoke;
 	background: #8FBC8F;
 }
 
-.address_1 {
+.delete {
 	width: 60px;
 	height: 28px;
-	margin-top: 15px;
-	background: #8FBC8F;
-	border: 0px;
 	color: whitesmoke;
+	margin-top: 15px;
+	c background: #8FBC8F;
 }
