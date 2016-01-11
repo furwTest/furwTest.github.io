@@ -138,7 +138,7 @@
 	var opts = {
 		width: 250, // 信息窗口宽度
 		height: 80, // 信息窗口高度
-		title: "信息窗口", // 信息窗口标题
+		title: "", // 信息窗口标题
 		enableMessage: true //设置允许信息窗发送短息
 	};
 	select();
@@ -152,31 +152,33 @@
 					for (j = 0; j < len1; j++) {
 						var marker = new BMap.Marker(new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat)); // 创建标注
 						var content = results.rows.item(j).address;
+						var name = results.rows.item(j).name;
 						// 开启拖拽
 						marker.enableDragging();
 						// 将标注添加到地图中
 						map.addOverlay(marker);
 						//创建信息窗口对象
-						var body = "<div class='address'></div> <button class='delete'>删除</button>";
+						var body = "<div class='name'><div><div class='address'></div> <button class='delete'>编辑</button> <button class='delete'>删除</button>";
 						var point = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
 						var infoWindow = new BMap.InfoWindow(body, opts);
 						//将信息窗口加到地图
-						addClickHandler(content, marker, point, infoWindow);
+						addClickHandler(name, content, marker, point, infoWindow);
 					}
 				}, null);
 		});
 	}
 
-	function addClickHandler(content, marker, point, infoWindow) {
+	function addClickHandler(name, content, marker, point, infoWindow) {
 		marker.addEventListener("click", function(e) {
 			openInfo(content, e, point, infoWindow);
 		});
 	}
 
-	function openInfo(content, e, point, infoWindow) {
+	function openInfo(name, content, e, point, infoWindow) {
 		//开启信息窗口
 		map.openInfoWindow(infoWindow, point);
 		$(".address").html(content);
+		$(".name").html(name);
 		$(".delete").click(function() {
 			alert("删除");
 		});
