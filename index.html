@@ -142,7 +142,6 @@
 		enableMessage: true //设置允许信息窗发送短息
 	};
 	select();
-	var body = "<div class='address'></div> <button class='delete'>删除</button>";
 	//查询数据	
 	function select() {
 		dataBase.transaction(function(tx) {
@@ -155,21 +154,21 @@
 						var content = results.rows.item(j).address;
 						marker.enableDragging(); // 开启拖拽
 						map.addOverlay(marker); // 将标注添加到地图中
-						addClickHandler(body, content, marker);
+						addClickHandler(content, marker);
 					}
 				}, null);
 		});
 	}
 
-	function addClickHandler(body, content, marker) {
+	function addClickHandler(content, marker) {
 		marker.addEventListener("click", function(e) {
-			openInfo(body, content, e);
+			openInfo(content, e);
 		});
 	}
 
-	function openInfo(body, content, e) {
+	function openInfo(content, e) {
+		var body = "<div class='address'></div> <button class='delete'>删除</button>";
 		var p = e.target;
-		alert(112);
 		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
 		var infoWindow = new BMap.InfoWindow(body, opts, function() {
 			alert(11);
