@@ -119,7 +119,6 @@
 					dataBase.transaction(function(tx) {
 						tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES( ? , ? , ? ,?)', [shop, e.point.lng, e.point.lat, "地址:" + address1]);
 					});
-					map.removeOverlay(marker);
 					//回调 (添加到数据库，然后取出展示到页面)
 					select();
 					//添加标记
