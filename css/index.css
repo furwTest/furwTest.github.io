@@ -69,7 +69,6 @@ textarea {
 .edit {
 	width: 60px;
 	height: 28px;
-	margin-top: 10px;
 	margin-top: 15px;
 	color: whitesmoke;
 	background: #8FBC8F;
@@ -78,7 +77,7 @@ textarea {
 .delete {
 	width: 60px;
 	height: 28px;
-	color: whitesmoke;
 	margin-top: 15px;
-	c background: #8FBC8F;
+	color: whitesmoke;
+	background: #8FBC8F;;
 }
