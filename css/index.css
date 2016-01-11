@@ -57,21 +57,27 @@ textarea {
 	cursor: pointer;
 	background-color: darkseagreen;
 }
-.shop_name{
+
+.shop_name {
 	color: #FF4500;
 }
-.address{
+
+.address {
 	margin-top: 10px;
 }
-.edit{
+
+.edit {
 	width: 60px;
 	height: 28px;
 	margin-top: 10px;
 	background: #8FBC8F;
 }
-.delete{
+
+.address_1 {
 	width: 60px;
 	height: 28px;
-	margin-top:10px ;
+	margin-top: 15px;
 	background: #8FBC8F;
+	border: 0px;
+	color: whitesmoke;
 }

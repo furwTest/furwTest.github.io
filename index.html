@@ -137,7 +137,7 @@
 	});
 	var opts = {
 		width: 250, // 信息窗口宽度
-		height: 150, // 信息窗口高度
+		height: 130, // 信息窗口高度
 		title: "", // 信息窗口标题
 		enableMessage: true //设置允许信息窗发送短息
 	};
@@ -158,7 +158,7 @@
 						// 将标注添加到地图中
 						map.addOverlay(marker);
 						//创建信息窗口对象
-						var body = "<div class='shop_name'></div><div class='address'></div> <button class='edit'>编辑</button> <button class='delete'>删除</button>";
+						var body = "<div class='shop_name'></div><div class='address_1'></div> <button class='edit'>编辑</button> <button class='delete'>删除</button>";
 						var point = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
 						var infoWindow = new BMap.InfoWindow(body, opts);
 						//将信息窗口加到地图
@@ -177,7 +177,7 @@
 	function openInfo(shopname, content, e, point, infoWindow) {
 		//开启信息窗口
 		map.openInfoWindow(infoWindow, point);
-		$(".address").html(content);
+		$(".address_1").html(content);
 		$(".shop_name").html(shopname);
 		$(".delete").click(function() {
 			alert("删除");
