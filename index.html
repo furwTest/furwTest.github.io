@@ -169,6 +169,7 @@
 
 	function openInfo(body, content, e) {
 		var p = e.target;
+		alert(112);
 		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
 		var infoWindow = new BMap.InfoWindow(body, opts, function() {
 			alert(11);
