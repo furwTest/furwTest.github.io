@@ -211,7 +211,7 @@
 				var address1 = $(".address").val();
 				//更新标注位置信息
 				dataBase.transaction(function(tx) {
-					tx.executeSql("update logs set addtrss = ? ,lon = ? ,lat = ?  where name= ?", [address, e.point.lng, e.point.lat, shopname]);
+					tx.executeSql("update logs set address = ? ,lon = ? ,lat = ?  where name= ?", [address, e.point.lng, e.point.lat, shopname]);
 				});
 				//保存标记后 关闭窗口
 				searchInfoWindow.close();
