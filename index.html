@@ -121,7 +121,6 @@
 						tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES( ? , ? , ? ,?)', [shop, e.point.lng, e.point.lat, "地址:" + address1]);
 					});
 					searchInfoWindow.close(); //保存标记后 关闭窗口
-					isTrue = true;
 					select(); //回调 (添加到数据库，然后取出展示到页面)
 					map.removeOverlay(marker); //删除临时标记
 					//添加标记
@@ -143,35 +142,35 @@
 		title: "", // 信息窗口标题
 		enableMessage: true //设置允许信息窗发送短息
 	};
-	select();
+	//初始化标注点 页面加载时执行一次
+	if (isTrue) {
+		select();
+		isTrue = false;
+	}
 	//查询数据	
 	function select() {
-		//初始化标注点 页面加载时执行一次
-		if (isTrue) {
-			dataBase.transaction(function(tx) {
-				tx.executeSql('SELECT * FROM LOGS', [],
-					function(tx, results) {
-						var len1 = results.rows.length,
-							j;
-						for (j = 0; j < len1; j++) {
-							var marker = new BMap.Marker(new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat)); // 创建标注
-							var content = results.rows.item(j).address;
-							var shopname = results.rows.item(j).name;
-							// 开启拖拽
-							marker.enableDragging();
-							// 将标注添加到地图中
-							map.addOverlay(marker);
-							//创建信息窗口对象
-							var body = "<div class='shop_name'></div><div class='address_1'></div> <button class='edit'>编辑</button> <button class='delete'>删除</button>";
-							var point = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
-							var infoWindow = new BMap.InfoWindow(body, opts);
-							//将信息窗口加到地图
-							addClickHandler(shopname, content, marker, point, infoWindow);
-						}
-					}, null);
-			});
-			isTrue = false;
-		}
+		dataBase.transaction(function(tx) {
+			tx.executeSql('SELECT * FROM LOGS', [],
+				function(tx, results) {
+					var len1 = results.rows.length,
+						j;
+					for (j = 0; j < len1; j++) {
+						var marker = new BMap.Marker(new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat)); // 创建标注
+						var content = results.rows.item(j).address;
+						var shopname = results.rows.item(j).name;
+						// 开启拖拽
+						marker.enableDragging();
+						// 将标注添加到地图中
+						map.addOverlay(marker);
+						//创建信息窗口对象
+						var body = "<div class='shop_name'></div><div class='address_1'></div> <button class='edit'>编辑</button> <button class='delete'>删除</button>";
+						var point = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
+						var infoWindow = new BMap.InfoWindow(body, opts);
+						//将信息窗口加到地图
+						addClickHandler(shopname, content, marker, point, infoWindow);
+					}
+				}, null);
+		});
 	}
 
 	function addClickHandler(shopname, content, marker, point, infoWindow) {
