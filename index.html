@@ -119,12 +119,14 @@
 					dataBase.transaction(function(tx) {
 						tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES( ? , ? , ? ,?)', [shop, e.point.lng, e.point.lat, "地址:" + address1]);
 					});
+					// 开启拖拽
+						marker.enableDragging();
 					//保存标记后 关闭窗口
 					searchInfoWindow.close();
-					//删除临时标记
-					map.removeOverlay(marker);
 					//回调 (添加到数据库，然后取出展示到页面)
 					select();
+					//删除临时标记
+					map.removeOverlay(marker);
 				}
 			});
 			//取消添加 (取消按钮)
