@@ -162,16 +162,16 @@
 						var infoWindow = new BMap.InfoWindow(body, opts);
 						//将信息窗口加到地图
 						addClickHandler(shopname, content, marker, point, infoWindow);
-						//移动位置
+						//拖拽标注改变位置
 						mobileLocation(marker);
 					}
 				}, null);
 		});
 	}
-	//移动位置
+	//拖拽标注改变位置
 	function mobileLocation(marker){
 		marker.addEventListener("dragend", function(e) {
-			alert(11);
+			alert(marker.getPosition());
 		});
 	}
 
