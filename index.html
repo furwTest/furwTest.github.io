@@ -283,8 +283,16 @@
 		//取消
 		$(".delete").click(function() {
 			if ($(".delete").html() == "取消") {
-				$(".shop_name").html(shopname);
-				$(".address_1").html(content);
+				if (names == "null") {
+					$(".shop_name").html(shopname);
+				} else {
+					$(".shop_name").html(names);
+				}
+				if (addresss == "null") {
+					$(".address_1").html(content);
+				} else {
+					$(".address_1").html(addresss);
+				}
 				$(".edit").html("编辑");
 				$(".delete").html("删除");
 			}
