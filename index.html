@@ -201,6 +201,11 @@
 				address = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
 				$(".address").val(address);
 			});
+			// 取消移动位置
+			$(".cancel").click(function() {
+				searchInfoWindow.close();
+				select();
+			});
 		});
 	}
 
