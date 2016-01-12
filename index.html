@@ -87,9 +87,9 @@
 			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
 			//添加标记
 			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
-			marker.enableDragging(); // 开启拖拽
+			//			marker.enableDragging(); // 开启拖拽
 			map.addOverlay(marker); //增加点
-			//取消添加
+			//取消添加 (close)
 			searchInfoWindow.addEventListener("close", function(e) {
 				map.removeOverlay(marker);
 			});
@@ -128,7 +128,7 @@
 					//					map.addOverlay(marker); //增加点
 				}
 			});
-			//取消添加
+			//取消添加 (取消按钮)
 			$(".cancel").click(function() {
 				searchInfoWindow.close();
 				map.removeOverlay(marker);
@@ -144,6 +144,7 @@
 	select();
 	//查询数据	
 	function select() {
+		alert(111);
 		dataBase.transaction(function(tx) {
 			tx.executeSql('SELECT * FROM LOGS', [],
 				function(tx, results) {
@@ -185,7 +186,8 @@
 					tx.executeSql('delete from logs where name=?', [shopname]);
 				});
 				infoWindow.close();
-				map.removeOverlay(marker);Ï
+				map.removeOverlay(marker);
+				return true;
 			} else {
 				return false;
 			}
