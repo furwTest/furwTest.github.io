@@ -156,15 +156,22 @@
 						marker.enableDragging();
 						// 将标注添加到地图中
 						map.addOverlay(marker);
-					
 						//创建信息窗口对象
 						var body = "<div class='shop_name'></div><div class='address_1'></div> <button class='edit'>编辑</button> <button class='delete'>删除</button>";
 						var point = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
 						var infoWindow = new BMap.InfoWindow(body, opts);
 						//将信息窗口加到地图
 						addClickHandler(shopname, content, marker, point, infoWindow);
+						//移动位置
+						mobileLocation(marker);
 					}
 				}, null);
+		});
+	}
+	//移动位置
+	function mobileLocation(marker){
+		marker.addEventListener("mouseup", function(e) {
+			alert(11);
 		});
 	}
 
