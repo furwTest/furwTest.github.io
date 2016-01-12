@@ -89,8 +89,6 @@
 			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
 			//添加标记
 			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
-			// 开启拖拽
-			marker.enableDragging();
 			map.addOverlay(marker); //增加点
 			//取消添加 (close)
 			searchInfoWindow.addEventListener("close", function(e) {
@@ -148,11 +146,14 @@
 				function(tx, results) {
 					var len1 = results.rows.length,
 						j;
+					//移除所有的覆盖物
 					map.clearOverlays();
 					for (j = 0; j < len1; j++) {
 						var marker = new BMap.Marker(new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat)); // 创建标注
 						var content = results.rows.item(j).address;
 						var shopname = results.rows.item(j).name;
+						// 开启拖拽
+						marker.enableDragging();
 						// 将标注添加到地图中
 						map.addOverlay(marker);
 						//创建信息窗口对象
