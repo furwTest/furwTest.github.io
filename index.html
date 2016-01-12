@@ -233,15 +233,17 @@
 		$(".address_1").html(content);
 		$(".shop_name").html(shopname);
 		$(".delete").click(function() {
-			if (window.confirm('你确定要取消交易吗？')) {
-				dataBase.transaction(function(tx) {
-					tx.executeSql('delete from logs where name=?', [shopname]);
-				});
-				infoWindow.close();
-				map.removeOverlay(marker);
-				return true;
-			} else {
-				return false;
+			if ($(".edit").html() == "删除") {
+				if (window.confirm('你确定要取消交易吗？')) {
+					dataBase.transaction(function(tx) {
+						tx.executeSql('delete from logs where name=?', [shopname]);
+					});
+					infoWindow.close();
+					map.removeOverlay(marker);
+					return true;
+				} else {
+					return false;
+				}
 			}
 		});
 		//编辑
