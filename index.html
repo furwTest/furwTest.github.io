@@ -148,6 +148,8 @@
 						j;
 					//移除所有的覆盖物
 					map.clearOverlays();
+					var point = new BMap.Point(a, b);
+					map.centerAndZoom(point, 15);
 					alert(a);
 					for (j = 0; j < len1; j++) {
 						var marker = new BMap.Marker(new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat)); // 创建标注
