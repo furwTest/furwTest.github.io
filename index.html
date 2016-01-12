@@ -247,11 +247,12 @@
 		$(".edit").click(function() {
 			if ($(".edit").html() == "编辑") {
 				$(".edit").html("保存");
+				$(".shop_name").html("<input type='text'/>");
 				alert(编辑);
 			} else {
+				$(".shop_name").html(shopname);
 				$(".edit").html("编辑");
 			}
-			$(".shop_name").html("<input type='text'/>");
 		})
 	}
 </script>
