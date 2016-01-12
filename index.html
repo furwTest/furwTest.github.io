@@ -163,16 +163,15 @@
 						//将信息窗口加到地图
 						addClickHandler(shopname, content, marker, point, infoWindow);
 						//拖拽标注改变位置
-						mobileLocation(marker,shopname);
+						mobileLocation(marker, shopname);
 					}
 				}, null);
 		});
 	}
 	//拖拽标注改变位置
-	function mobileLocation(marker,shopname) {
+	function mobileLocation(marker, shopname) {
 		marker.addEventListener("dragend", function(e) {
 			//拖拽后的坐标
-			alert(shopname);
 			var content = '<div class="info"><label>坐标:</label><input class="coordinates" type="text"/></div>' +
 				'<div class="info"><label>地址:</label><input class="address" type="text"/></div>' +
 				'<div class="operation" style="margin-top:16px"><button onfocus="this.blur()" class="save">保存</button><button onfocus="this.blur()" class="cancel">取消</button></div>';
@@ -212,7 +211,7 @@
 				var address1 = $(".address").val();
 				//更新标注位置信息
 				dataBase.transaction(function(tx) {
-					tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES( ? , ? , ? ,?)', [shop, e.point.lng, e.point.lat, "地址:" + address1]);
+					tx.executeSql("update stu set addtrss = ? ,lon = ? ,lat = ?  where name= ?", [address, e.point.lng, e.point.lat, shopname]);
 				});
 				//保存标记后 关闭窗口
 				searchInfoWindow.close();
