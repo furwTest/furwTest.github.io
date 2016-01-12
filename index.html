@@ -89,6 +89,8 @@
 			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
 			//添加标记
 			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
+			// 开启拖拽
+			marker.enableDragging();
 			map.addOverlay(marker); //增加点
 			//取消添加 (close)
 			searchInfoWindow.addEventListener("close", function(e) {
@@ -123,8 +125,6 @@
 					searchInfoWindow.close();
 					//回调 (添加到数据库，然后取出展示到页面)
 					select();
-					//删除临时标记
-//					map.removeOverlay(marker);
 				}
 			});
 			//取消添加 (取消按钮)
