@@ -171,8 +171,7 @@
 	//拖拽标注改变位置
 	function mobileLocation(marker){
 		marker.addEventListener("dragend", function(e) {
-		 	var aa = marker.getPosition();
-			alert(aa.point);
+			alert(e.point.lng, e.point.lat);
 		});
 	}
 
