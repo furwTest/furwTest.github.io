@@ -25,6 +25,8 @@
 <script src="js/index.js"></script>
 
 <script type="text/javascript">
+	var names = "null";
+	var addresss = "null";
 	//打开数据库 如果数据库 不存在将创建数据库
 	var dataBase = openDatabase("sales_address", "1.0", "店铺位置表", 1024 * 1024);
 	//创建表
@@ -253,13 +255,23 @@
 				$(".delete").html("取消");
 				$(".shop_name").html("<input id='shop_name' type='text'/>");
 				$(".address_1").html("<input id='address_1' type='text'/>");
-				$("#shop_name").val(shopname);
-				$("#address_1").val(content);
+				if (names == "null") {
+					$("#shop_name").val(shopname);
+				} else {
+					$("#shop_name").val(names);
+				}
+				if (addresss == "null") {
+					$("#address_1").val(content);
+				} else {
+					$("#address_1").val(addresss);
+				}
 			} else {
 				var name = $("#shop_name").val();
 				var address_2 = $("#address_1").val();
 				$(".shop_name").html(name);
 				$(".address_1").html(address_2);
+				names = name;
+				addresss = address_2;
 				//更新标注信息
 				dataBase.transaction(function(tx) {
 					tx.executeSql("update logs set address = ? ,name = ? where name= ?", [address_2, name, shopname]);
