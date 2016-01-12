@@ -156,9 +156,7 @@
 						marker.enableDragging();
 						// 将标注添加到地图中
 						map.addOverlay(marker);
-						marker.click(function(){
-							alert(123);
-						})
+					
 						//创建信息窗口对象
 						var body = "<div class='shop_name'></div><div class='address_1'></div> <button class='edit'>编辑</button> <button class='delete'>删除</button>";
 						var point = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
