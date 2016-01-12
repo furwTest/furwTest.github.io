@@ -259,7 +259,11 @@
 				var name = $("#shop_name").val();
 				var address_2 = $("#address_1").val();
 				$(".shop_name").html(name);
-				$(".address_1").html(address_2)
+				$(".address_1").html(address_2);
+				//更新标注信息
+				dataBase.transaction(function(tx) {
+					tx.executeSql("update logs set address = ? ,name = ? where name= ?", [address_2, name, shopname]);
+				});
 				$(".edit").html("编辑");
 				$(".delete").html("删除");
 			}
