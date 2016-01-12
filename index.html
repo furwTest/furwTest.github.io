@@ -120,7 +120,8 @@
 						tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES( ? , ? , ? ,?)', [shop, e.point.lng, e.point.lat, "地址:" + address1]);
 					});
 					// 开启拖拽
-						marker.enableDragging();
+					marker.enableDragging();
+					alert(22);
 					//保存标记后 关闭窗口
 					searchInfoWindow.close();
 					//回调 (添加到数据库，然后取出展示到页面)
@@ -158,6 +159,7 @@
 						marker.enableDragging();
 						// 将标注添加到地图中
 						map.addOverlay(marker);
+						alert(11);
 						//创建信息窗口对象
 						var body = "<div class='shop_name'></div><div class='address_1'></div> <button class='edit'>编辑</button> <button class='delete'>删除</button>";
 						var point = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
