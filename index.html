@@ -244,16 +244,27 @@
 				return false;
 			}
 		});
+		//编辑
 		$(".edit").click(function() {
 			if ($(".edit").html() == "编辑") {
 				$(".edit").html("保存");
+				$(".delete").html("取消");
 				$(".shop_name").html("<input id='shop_name' type='text'/>");
 				$("#shop_name").val(shopname);
 				alert(编辑);
 			} else {
 				$(".shop_name").html(shopname);
 				$(".edit").html("编辑");
+				$(".delete").html("删除");
 			}
-		})
+		});
+		//取消
+		$(".delite").click(function() {
+			if ($(".edit").html() == "取消") {
+				$(".shop_name").html(shopname);
+				$(".edit").html("编辑");
+				$(".delete").html("删除");
+			}
+		});
 	}
 </script>
