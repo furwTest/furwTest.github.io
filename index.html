@@ -175,12 +175,12 @@
 			var content = '<div class="info"> <label>名称:</label><input class="name" type="text"/></div>' +
 				'<div class="info"><label>坐标:</label><input class="coordinates" type="text"/></div>' +
 				'<div class="info"><label>地址:</label><input class="address" type="text"/></div>' +
-				'<div class="operation" style="margin-top:10px"><button onfocus="this.blur()" class="save">保存</button><button onfocus="this.blur()" class="cancel">取消</button></div>';
+				'<div class="operation" style="margin-top:30px"><button onfocus="this.blur()" class="save">保存</button><button onfocus="this.blur()" class="cancel">取消</button></div>';
 			//弹出 添加标注信息窗口
 			var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
 				title: "改变位置", //标题
 				width: 200, //宽度
-				height: 150, //高度
+				height: 160, //高度
 				panel: "panel", //检索结果面板
 				enableAutoPan: true, //自动平移
 				enableMessage: false,
