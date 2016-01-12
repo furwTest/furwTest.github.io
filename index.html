@@ -247,7 +247,8 @@
 		$(".edit").click(function() {
 			if ($(".edit").html() == "编辑") {
 				$(".edit").html("保存");
-				$(".shop_name").html("<input type='text'/>");
+				$(".shop_name").html("<input id='shop_name' type='text'/>");
+				$("#shop_name").val(shopname);
 				alert(编辑);
 			} else {
 				$(".shop_name").html(shopname);
