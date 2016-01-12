@@ -255,10 +255,11 @@
 				$(".address_1").html("<input id='address_1' type='text'/>");
 				$("#shop_name").val(shopname);
 				$("#address_1").val(content);
-				alert(编辑);
 			} else {
-				$(".shop_name").html(shopname);
-				$(".address_1").html(content)
+				var name = $(".shop_name").val();
+				var address_2 = $(".address_1").val();
+				$(".shop_name").html(name);
+				$(".address_1").html(address_2)
 				$(".edit").html("编辑");
 				$(".delete").html("删除");
 			}
