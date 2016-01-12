@@ -55,11 +55,12 @@
 		}
 	}, {
 		enableHighAccuracy: true
-	});
+	}); //定位结束
 	//初始化 并且设置地图现实 级别
 	var point = new BMap.Point(a, b);
 	map.centerAndZoom(point, 15);
-	map.enableScrollWheelZoom(); //启用滚轮放大缩小，默认禁用
+	//启用滚轮放大缩小，默认禁用
+	map.enableScrollWheelZoom();
 	//单击获取点击的经纬度
 	map.addEventListener("click", function(e) {
 		//判断点击的是 地图 还是覆盖物
@@ -84,6 +85,7 @@
 				enableSendToPhone: false, //去掉发送到手机 小图标
 				searchTypes: []
 			});
+			//打开添加标注信息窗口
 			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
 			//添加标记
 			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
@@ -119,9 +121,10 @@
 					});
 					//保存标记后 关闭窗口
 					searchInfoWindow.close();
+					//删除临时标记
+					map.removeOverlay(marker);
 					//回调 (添加到数据库，然后取出展示到页面)
 					select();
-					map.removeOverlay(marker); //删除临时标记
 				}
 			});
 			//取消添加 (取消按钮)
