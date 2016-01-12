@@ -244,7 +244,13 @@
 				return false;
 			}
 		});
-		$(".edit").click(function(){
+		$(".edit").click(function() {
+			if ($(".edit").html() == "编辑") {
+				$(".edit").html("保存");
+				alert(编辑);
+			} else {
+				$(".edit").html("编辑");
+			}
 			$(".shop_name").html("<input type='text'/>");
 		})
 	}
