@@ -64,7 +64,7 @@
 	//启用滚轮放大缩小，默认禁用
 	map.enableScrollWheelZoom();
 	//单击获取点击的经纬度
-	map.addEventListener("click", function(e) {
+	map.addEventListener("touchstart", function(e) {
 		//判断点击的是 地图 还是覆盖物
 		if (e.overlay) {
 			//覆盖物 不操作
