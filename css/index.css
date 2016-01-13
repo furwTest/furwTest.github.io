@@ -6,6 +6,13 @@ html {
 	font-family: "微软雅黑";
 }
 
+
+/*去除百度地图版权*/
+
+.anchorBL {
+	display: none;
+}
+
 input,
 button,
 select,
@@ -84,13 +91,15 @@ textarea {
 	border: 0px;
 	background: #8FBC8F;
 }
-#shop_name{
+
+#shop_name {
 	width: 220px;
 	height: 27px;
 	padding-left: 7px;
 	font-size: 14px;
 }
-#address_1{
+
+#address_1 {
 	width: 220px;
 	height: 27px;
 	padding-left: 7px;
