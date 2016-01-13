@@ -143,8 +143,6 @@
 	select();
 	//查询数据	
 	function select() {
-		var allOverlay = map.getOverlays();
-		alert(allOverlay);
 		dataBase.transaction(function(tx) {
 			tx.executeSql('SELECT * FROM LOGS', [],
 				function(tx, results) {
