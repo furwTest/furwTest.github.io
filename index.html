@@ -148,16 +148,20 @@
 	//查询数据	
 	function select() {
 		dataBase.transaction(function(tx) {
-			tx.executeSql('SELECT * FROM LOGS', [],
-				function(tx, results) {
-					var len1 = results.rows.length,
-						j;
-					//移除所有的覆盖物
-					map.clearOverlays();
-					var marker1 = new BMap.Marker(new BMap.Point(a, b));
-					map.addOverlay(marker1); //增加点
-					for (j = 0; j < len1; j++) {
-						var marker = new BMap.Marker(new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat)); // 创建标注
+				tx.executeSql('SELECT * FROM LOGS', [],
+					function(tx, results) {
+						var len1 = results.rows.length,
+							j;
+						//移除所有的覆盖物
+						map.clearOverlays();
+						var marker1 = new BMap.Marker(new BMap.Point(a, b));
+						map.addOverlay(marker1); //增加点
+						for (j = 0; j < len1; j++) {
+							var myIcon = new BMap.Icon("img/bz.png", new BMap.Size(32, 32));
+							var pt = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat));
+						var marker = new BMap.Marker(pt, {
+							icon: myIcon
+						});
 						var content = results.rows.item(j).address;
 						var shopname = results.rows.item(j).name;
 						// 开启拖拽
