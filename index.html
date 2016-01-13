@@ -143,13 +143,6 @@
 	select();
 	//查询数据	
 	function select() {
-		var allOverlay = map.getOverlays();
-		alert(allOverlay);
-		for (var i = 0; i < allOverlay.length; i++) {
-			alert(1);
-			var point = allOverlay[i].getPosition(); //获取marker的位置
-			alert("marker的位置是" + point.lng + "," + point.lat);
-		}
 		dataBase.transaction(function(tx) {
 			tx.executeSql('SELECT * FROM LOGS', [],
 				function(tx, results) {
@@ -308,5 +301,12 @@
 		infoWindow.addEventListener("close", function(e) {
 			select();
 		});
+	}
+	var allOverlay = map.getOverlays();
+	alert(allOverlay);
+	for (var i = 0; i < allOverlay.length; i++) {
+		alert(1);
+		var point = allOverlay[i].getPosition(); //获取marker的位置
+		alert("marker的位置是" + point.lng + "," + point.lat);
 	}
 </script>
