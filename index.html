@@ -89,9 +89,9 @@
 			});
 			//打开添加标注信息窗口
 			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
-			var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat), {
-				icon: myIcon
-			});
+			//添加标记
+			var pt = new BMap.Point(e.point.lng, e.point.lat);
+			var marker = new BMap.Marker(pt);
 			map.addOverlay(marker); //增加点
 			//取消添加 (close)
 			searchInfoWindow.addEventListener("close", function(e) {
