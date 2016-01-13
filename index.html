@@ -151,11 +151,10 @@
 					//移除所有的覆盖物
 					map.clearOverlays();
 					var allOverlay = map.getOverlays();
-					for (var i = 0; i < allOverlay.length - 1; i++) {
+					for (var i = 0; i < allOverlay.length; i++) {
 						var point = allOverlay[i].getPosition(); //获取marker的位置
 						alert("marker的位置是" + point.lng + "," + point.lat);
 					}
-					alert(list);
 					for (j = 0; j < len1; j++) {
 						var marker = new BMap.Marker(new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat)); // 创建标注
 						var content = results.rows.item(j).address;
