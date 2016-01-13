@@ -143,19 +143,17 @@
 	select();
 	//查询数据	
 	function select() {
-		alert(map.getOverlays());
-//		for (var i = 0; i < allOverlay.length; i++) {
-//			alert(1);
-//			var point = allOverlay[i].getPosition(); //获取marker的位置
-//			alert("marker的位置是" + point.lng + "," + point.lat);
-//		}
+		var allOverlay = map.getOverlays();
+		alert(allOverlay);
 		dataBase.transaction(function(tx) {
 			tx.executeSql('SELECT * FROM LOGS', [],
 				function(tx, results) {
 					var len1 = results.rows.length,
 						j;
 					//移除所有的覆盖物
-					//					map.clearOverlays();
+					map.clearOverlays();
+					var marker1 = new BMap.Marker(new BMap.Point(a, b));
+					map.addOverlay(marker1); //增加点
 					for (j = 0; j < len1; j++) {
 						var marker = new BMap.Marker(new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat)); // 创建标注
 						var content = results.rows.item(j).address;
