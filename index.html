@@ -150,6 +150,10 @@
 						j;
 					//移除所有的覆盖物
 					map.clearOverlays();
+					
+					var list = map.getOverlays();
+					alert(list);
+					
 					for (j = 0; j < len1; j++) {
 						var marker = new BMap.Marker(new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat)); // 创建标注
 						var content = results.rows.item(j).address;
