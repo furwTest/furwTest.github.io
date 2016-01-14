@@ -128,10 +128,9 @@
 					//保存标记后 关闭窗口
 					searchInfoWindow.close();
 					//回调 (添加到数据库，然后取出展示到页面)
-					select();
-				}
-			});
-			//取消添加 (取消按钮)
+select();
+}
+});//取消添加 (取消按钮)
 			$(".cancel").click(function() {
 				searchInfoWindow.close();
 				map.removeOverlay(marker);
@@ -235,7 +234,6 @@
 	}
 
 	function addClickHandler(shopname, content, marker, point, infoWindow) {
-		alert(1);
 		marker.addEventListener("click", function(e) {
 			openInfo(shopname, content, e, point, infoWindow, marker);
 		});
