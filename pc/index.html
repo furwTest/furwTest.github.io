@@ -25,8 +25,8 @@
 <script src="../js/index.js"></script>
 
 <script type="text/javascript">
-	var names = "null";
-	var addresss = "null";
+	var names;
+	var addresss;
 	//打开数据库 如果数据库 不存在将创建数据库
 	var dataBase = openDatabase("sales_address", "1.0", "店铺位置表", 1024 * 1024);
 	//创建表
@@ -104,8 +104,8 @@
 			var address;
 			//获取当前点击地址
 			var geoc = new BMap.Geocoder();
-			var pt = e.point;
-			geoc.getLocation(pt, function(rs) {
+			var pt1 = e.point;
+			geoc.getLocation(pt1, function(rs) {
 				var addComp = rs.addressComponents;
 				address = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
 				$(".address").val(address);
@@ -156,8 +156,8 @@
 					map.addOverlay(marker1); //增加点
 					for (j = 0; j < len1; j++) {
 						var myIcon = new BMap.Icon("../img/address1.png", new BMap.Size(32, 32));
-						var pt = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
-						var marker = new BMap.Marker(pt, {icon: myIcon});
+						var pt2 = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
+						var marker = new BMap.Marker(pt2, {icon: myIcon});
 						var content = results.rows.item(j).address;
 						var shopname = results.rows.item(j).name;
 						// 开启拖拽
@@ -171,7 +171,7 @@
 						//将信息窗口加到地图
 						addClickHandler(shopname, content, marker, point, infoWindow);
 						//拖拽标注改变位置
-//						mobileLocation(marker, shopname);
+						mobileLocation(marker, shopname);
 					}
 				}, null);
 		});
