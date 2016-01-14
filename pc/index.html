@@ -90,9 +90,11 @@
 			//打开添加标注信息窗口
 			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
 			//添加标记
-//			var myIcon = new BMap.Icon("../img/address1.png", new BMap.Size(32, 32));
+			var myIcon = new BMap.Icon("../img/address1.png", new BMap.Size(32, 32));
 			var pt = new BMap.Point(e.point.lng, e.point.lat);
-			var marker = new BMap.Marker(pt);
+			var marker = new BMap.Marker(pt, {
+				icon: myIcon
+			});
 			map.addOverlay(marker); //增加点
 			//取消添加 (close)
 			searchInfoWindow.addEventListener("close", function(e) {
@@ -151,13 +153,15 @@
 					var len1 = results.rows.length,
 						j;
 					//移除所有的覆盖物
-					map.clearOverlays();
-					var marker1 = new BMap.Marker(new BMap.Point(a, b));
-					map.addOverlay(marker1); //增加点
+map.clearOverlays();
+var marker1 = new BMap.Marker(new BMap.Point(a, b));
+map.addOverlay(marker1);//增加点
 					for (j = 0; j < len1; j++) {
-//						var myIcon = new BMap.Icon("../img/address1.png", new BMap.Size(32, 32));
+						var myIcon = new BMap.Icon("../img/address1.png", new BMap.Size(32, 32));
 						var pt = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
-						var marker = new BMap.Marker(pt);
+						var marker = new BMap.Marker(pt, {
+							icon: myIcon
+						});
 						var content = results.rows.item(j).address;
 						var shopname = results.rows.item(j).name;
 						// 开启拖拽
