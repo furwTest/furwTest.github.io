@@ -236,12 +236,12 @@
 
 	function addClickHandler(shopname, content, marker, point, infoWindow) {
 		marker.addEventListener("click", function(e) {
-			alert(11);
-//			openInfo(shopname, content, point, infoWindow, marker);
+
+			openInfo(shopname, content, point, infoWindow);
 		});
 	}
 
-	function openInfo(shopname, content, p, infoWindow, marker) {
+	function openInfo(shopname, content, p, infoWindow) {
 		map.openInfoWindow(infoWindow, p);
 		$(".address_1").html(content);
 		$(".shop_name").html(shopname);
