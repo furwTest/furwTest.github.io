@@ -183,6 +183,7 @@
 
 	function addClickHandler(shopname, content, marker, point, infoWindow) {
 		marker.addEventListener("click", function() {
+			alert(11);
 			openInfo(shopname, content, point, infoWindow, marker);
 		});
 	};
