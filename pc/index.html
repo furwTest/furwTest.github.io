@@ -27,6 +27,7 @@
 <script type="text/javascript">
 	var names;
 	var addresss;
+	var map;
 	//打开数据库 如果数据库 不存在将创建数据库
 	var dataBase = openDatabase("sales_address", "1.0", "店铺位置表", 1024 * 1024);
 	//创建表
@@ -240,7 +241,7 @@
 	}
 
 	function openInfo(shopname, content, point, infoWindow, marker) {
-//		map.openInfoWindow(infoWindow, point);
+		map.openInfoWindow(infoWindow, point);
 		$(".address_1").html(content);
 		$(".shop_name").html(shopname);
 		//开启信息窗口
