@@ -293,12 +293,12 @@
 		//取消
 		$(".delete").click(function() {
 			if ($(".delete").html() == "取消") {
-				if (names == "null") {
+				if (names == 1) {
 					$(".shop_name").html(shopname);
 				} else {
 					$(".shop_name").html(names);
 				}
-				if (addresss == "null") {
+				if (addresss == 1) {
 					$(".address_1").html(content);
 				} else {
 					$(".address_1").html(addresss);
