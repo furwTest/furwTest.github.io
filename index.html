@@ -1,67 +1,54 @@
-<!DOCTYPE html>
 <html>
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-		<title>百度地图 </title>
-		<script src="js/jquery-2.1.0.js"></script>
-		<!--引用百度API-->
-		<script src="http://api.map.baidu.com/api?v=2.0&ak=IvBjpxT0GRidmqjDhGMFcQU6"></script>
-		<script src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
-		<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
-		<!--外部样式表-->
-		<link rel="stylesheet" href="css/index.css" />
+		<style type="text/css">
+			body,
+			html,
+			#allmap {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				margin: 0;
+				font-family: "微软雅黑";
+			}
+		</style>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=您的密钥"></script>
+		<title>浏览器定位</title>
 	</head>
 
 	<body>
-		<!--地图容器-->
 		<div id="allmap"></div>
-
-		<script src="js/index.js"></script>
-		<script>
-			var lng;
-			var lat;
-			var names = 1;
-			var addresss = 1;
-			//打开数据库 如果数据库 不存在将创建数据库
-			var dataBase = openDatabase("sales_address", "1.0", "店铺位置表", 1024 * 1024);
-			//创建表
-			dataBase.transaction(function(tx) {
-				tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (name unique, lon, lat, address)');
-			});
-			// 创建地图容器
-			map = new BMap.Map("allmap");
-			// GPS定位	需要打开电脑定位， 并且需要打开Wi-Fi
-			var geolocation = new BMap.Geolocation();
-			geolocation.getCurrentPosition(function(r) {
-					if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-						var mk = new BMap.Marker(r.point);
-						map.addOverlay(mk);
-						map.panTo(r.point);
-						lng = r.point.lng;
-						lat = r.point.lat;
-					} else {
-						alert('failed' + this.getStatus());
-					}
-				}, {
-					enableHighAccuracy: true
-				})
-				//初始化 并且设置地图现实 级别
-			var point = new BMap.Point(lng, lat);
-			map.centerAndZoom(point, 15);
-			//启用滚轮放大缩小，默认禁用
-			map.enableScrollWheelZoom();
-			map.addEventListener("click", function(e) {
-				//判断点击的是 地图 还是覆盖物
-				if (e.overlay) {
-					//覆盖物 不操作
-					alert("覆盖物");
-				} else {
-					alert("地图");
-				}
-			});
-		</script>
 	</body>
 
 </html>
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("allmap");
+	var point = new BMap.Point(116.331398, 39.897445);
+	map.centerAndZoom(point, 12);
+	var geolocation = new BMap.Geolocation();
+	geolocation.getCurrentPosition(function(r) {
+			if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+				var mk = new BMap.Marker(r.point);
+				map.addOverlay(mk);
+				map.panTo(r.point);
+				alert('您的位置：' + r.point.lng + ',' + r.point.lat);
+			} else {
+				alert('failed' + this.getStatus());
+			}
+		}, {
+			enableHighAccuracy: true
+		})
+		//关于状态码
+		//BMAP_STATUS_SUCCESS	检索成功。对应数值“0”。
+		//BMAP_STATUS_CITY_LIST	城市列表。对应数值“1”。
+		//BMAP_STATUS_UNKNOWN_LOCATION	位置结果未知。对应数值“2”。
+		//BMAP_STATUS_UNKNOWN_ROUTE	导航结果未知。对应数值“3”。
+		//BMAP_STATUS_INVALID_KEY	非法密钥。对应数值“4”。
+		//BMAP_STATUS_INVALID_REQUEST	非法请求。对应数值“5”。
+		//BMAP_STATUS_PERMISSION_DENIED	没有权限。对应数值“6”。(自 1.1 新增)
+		//BMAP_STATUS_SERVICE_UNAVAILABLE	服务不可用。对应数值“7”。(自 1.1 新增)
+		//BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
+</script>
