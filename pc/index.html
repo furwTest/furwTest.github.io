@@ -145,6 +145,7 @@
 		title: "", // 信息窗口标题
 		enableMessage: true //设置允许信息窗发送短息
 	};
+	var body = "<div class='shop_name'></div><div class='address_1'></div> <button class='edit'>编辑</button> <button class='delete'>删除</button>";
 	select();
 	//查询数据	
 	function select() {
@@ -170,9 +171,10 @@
 						// 将标注添加到地图中
 						map.addOverlay(marker);
 						//创建信息窗口对象
-						var body = "<div class='shop_name'></div><div class='address_1'></div> <button class='edit'>编辑</button> <button class='delete'>删除</button>";
+						var point = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
+						var infoWindow = new BMap.InfoWindow(body, opts);
 						//将信息窗口加到地图
-						addClickHandler(body, marker);
+						addClickHandler(shopname, content, marker, point, infoWindow);
 						//拖拽标注改变位置
 						mobileLocation(marker, shopname);
 					}
@@ -232,21 +234,17 @@
 		});
 	};
 
-	function addClickHandler(body, marker) {
+	function addClickHandler(shopname, content, marker, point, infoWindow) {
 		marker.addEventListener("click", function(e) {
-			openInfo(body, e);
+			openInfo(shopname, content, point, infoWindow);
 		});
 	};
 
-	function openInfo(body, e) {
-		
-		var p = e.target;
-		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
-		var infoWindow = new BMap.InfoWindow(body,opts);  // 创建信息窗口对象 
-		map.openInfoWindow(infoWindow,point); //开启信息窗口
-		
-		
-
+	function openInfo(shopname, content, point, infoWindow) {
+		map.openInfoWindow(infoWindow, point);
+		$(".address_1").html(content);
+		$(".shop_name").html(shopname);
+		return false;
 		//开启信息窗口
 		//		$(".delete").click(function() {
 		//			if ($(".delete").html() == "删除") {
