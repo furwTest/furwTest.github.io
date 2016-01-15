@@ -240,7 +240,6 @@
 	}
 
 	function openInfo(shopname, content, e, point, infoWindow, marker) {
-		alert(shopname);
 		//开启信息窗口
 		map.openInfoWindow(infoWindow, point);
 		$(".address_1").html(content);
@@ -267,6 +266,7 @@
 				$(".shop_name").html("<input id='shop_name' type='text'/>");
 				$(".address_1").html("<input id='address_1' type='text'/>");
 				if (names == "null") {
+					alert(11);
 					$("#shop_name").val(shopname);
 				} else {
 					$("#shop_name").val(names);
