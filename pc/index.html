@@ -92,7 +92,9 @@
 			//添加标记
 			var myIcon = new BMap.Icon("../img/address1.png", new BMap.Size(32, 32));
 			var pt = new BMap.Point(e.point.lng, e.point.lat);
-			var marker = new BMap.Marker(pt, {icon: myIcon});
+			var marker = new BMap.Marker(pt, {
+				icon: myIcon
+			});
 			map.addOverlay(marker); //增加点
 			//取消添加 (close)
 			searchInfoWindow.addEventListener("close", function(e) {
@@ -157,7 +159,9 @@
 					for (j = 0; j < len1; j++) {
 						var myIcon = new BMap.Icon("../img/address1.png", new BMap.Size(32, 32));
 						var pt2 = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
-						var marker = new BMap.Marker(pt2, {icon: myIcon});
+						var marker = new BMap.Marker(pt2, {
+							icon: myIcon
+						});
 						var content = results.rows.item(j).address;
 						var shopname = results.rows.item(j).name;
 						// 开启拖拽
@@ -169,7 +173,8 @@
 						var point = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
 						var infoWindow = new BMap.InfoWindow(body, opts);
 						//将信息窗口加到地图
-//						addClickHandler(shopname, content, marker, point, infoWindow);
+						//						addClickHandler(shopname, content, marker, point, infoWindow);
+						addClickHandler(shopname, content, marker, point, infoWindow);
 						//拖拽标注改变位置
 						mobileLocation(marker, shopname);
 					}
@@ -240,72 +245,72 @@
 		map.openInfoWindow(infoWindow, point);
 		$(".address_1").html(content);
 		$(".shop_name").html(shopname);
-		$(".delete").click(function() {
-			if ($(".delete").html() == "删除") {
-				if (window.confirm('你确定要删除标注吗？')) {
-					dataBase.transaction(function(tx) {
-						tx.executeSql('delete from logs where name=?', [shopname]);
-					});
-					infoWindow.close();
-					map.removeOverlay(marker);
-					return true;
-				} else {
-					return false;
-				}
-			}
-		});
-		//编辑
-		$(".edit").click(function() {
-			if ($(".edit").html() == "编辑") {
-				$(".edit").html("保存");
-				$(".delete").html("取消");
-				$(".shop_name").html("<input id='shop_name' type='text'/>");
-				$(".address_1").html("<input id='address_1' type='text'/>");
-				if (names == "null") {
-					$("#shop_name").val(shopname);
-				} else {
-					$("#shop_name").val(names);
-				}
-				if (addresss == "null") {
-					$("#address_1").val(content);
-				} else {
-					$("#address_1").val(addresss);
-				}
-			} else {
-				var name = $("#shop_name").val();
-				var address_2 = $("#address_1").val();
-				$(".shop_name").html(name);
-				$(".address_1").html(address_2);
-				names = name;
-				addresss = address_2;
-				//更新标注信息
-				dataBase.transaction(function(tx) {
-					tx.executeSql("update logs set address = ? ,name = ? where name= ?", [address_2, name, shopname]);
-				});
-				$(".edit").html("编辑");
-				$(".delete").html("删除");
-			}
-		});
-		//取消
-		$(".delete").click(function() {
-			if ($(".delete").html() == "取消") {
-				if (names == "null") {
-					$(".shop_name").html(shopname);
-				} else {
-					$(".shop_name").html(names);
-				}
-				if (addresss == "null") {
-					$(".address_1").html(content);
-				} else {
-					$(".address_1").html(addresss);
-				}
-				$(".edit").html("编辑");
-				$(".delete").html("删除");
-			}
-		});
-		//关闭信息窗口
-		infoWindow.addEventListener("close", function(e) {
-			select();
-		});
+		//		$(".delete").click(function() {
+		//			if ($(".delete").html() == "删除") {
+		//				if (window.confirm('你确定要删除标注吗？')) {
+		//					dataBase.transaction(function(tx) {
+		//						tx.executeSql('delete from logs where name=?', [shopname]);
+		//					});
+		//					infoWindow.close();
+		//					map.removeOverlay(marker);
+		//					return true;
+		//				} else {
+		//					return false;
+		//				}
+		//			}
+		//		});
+		//		//编辑
+		//		$(".edit").click(function() {
+		//			if ($(".edit").html() == "编辑") {
+		//				$(".edit").html("保存");
+		//				$(".delete").html("取消");
+		//				$(".shop_name").html("<input id='shop_name' type='text'/>");
+		//				$(".address_1").html("<input id='address_1' type='text'/>");
+		//				if (names == "null") {
+		//					$("#shop_name").val(shopname);
+		//				} else {
+		//					$("#shop_name").val(names);
+		//				}
+		//				if (addresss == "null") {
+		//					$("#address_1").val(content);
+		//				} else {
+		//					$("#address_1").val(addresss);
+		//				}
+		//			} else {
+		//				var name = $("#shop_name").val();
+		//				var address_2 = $("#address_1").val();
+		//				$(".shop_name").html(name);
+		//				$(".address_1").html(address_2);
+		//				names = name;
+		//				addresss = address_2;
+		//				//更新标注信息
+		//				dataBase.transaction(function(tx) {
+		//					tx.executeSql("update logs set address = ? ,name = ? where name= ?", [address_2, name, shopname]);
+		//				});
+		//				$(".edit").html("编辑");
+		//				$(".delete").html("删除");
+		//			}
+		//		});
+		//		//取消
+		//		$(".delete").click(function() {
+		//			if ($(".delete").html() == "取消") {
+		//				if (names == "null") {
+		//					$(".shop_name").html(shopname);
+		//				} else {
+		//					$(".shop_name").html(names);
+		//				}
+		//				if (addresss == "null") {
+		//					$(".address_1").html(content);
+		//				} else {
+		//					$(".address_1").html(addresss);
+		//				}
+		//				$(".edit").html("编辑");
+		//				$(".delete").html("删除");
+		//			}
+		//		});
+		//		//关闭信息窗口
+		//		infoWindow.addEventListener("close", function(e) {
+		//			select();
+		//		});
 	}
 </script>
