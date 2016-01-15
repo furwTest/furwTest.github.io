@@ -145,7 +145,7 @@
 		title: "", // 信息窗口标题
 		enableMessage: true //设置允许信息窗发送短息
 	};
-	var body = "<div class='shop_name'></div><div class='address_1'></div> <button class='edit'>编辑</button> <button class='delete'>删除</button>";
+	var body = "1111";
 	select();
 	//查询数据	
 	function select() {
@@ -242,13 +242,12 @@
 	};
 
 	function openInfo(shopname, content, e, infoWindow) {
-		alert(11);
 		var p = e.target;
 		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
-//		map.openInfoWindow(infoWindow, point);
+		map.openInfoWindow(infoWindow, point);
 		$(".address_1").html(content);
 		$(".shop_name").html(shopname);
-		return false;
+
 		//开启信息窗口
 		//		$(".delete").click(function() {
 		//			if ($(".delete").html() == "删除") {
