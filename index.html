@@ -51,12 +51,12 @@
 		} else {
 			alert('failed' + this.getStatus());
 		}
-		//初始化 并且设置地图现实 级别
-		var point = new BMap.Point(r.point.lng, r.point.lat);
-		map.centerAndZoom(point, 15);
 	}, {
 		enableHighAccuracy: true
 	}); //定位结束
+	//初始化 并且设置地图现实 级别
+	var point = new BMap.Point(r.point.lng, r.point.lat);
+	map.centerAndZoom(point, 15);
 	//单击获取点击的经纬度
 	map.addEventListener("click", function(e) {
 		//判断点击的是 地图 还是覆盖物
