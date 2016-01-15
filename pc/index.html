@@ -172,12 +172,8 @@
 						var body = "<div class='shop_name'></div><div class='address_1'></div> <button class='edit'>编辑</button> <button class='delete'>删除</button>";
 						var point = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
 						var infoWindow = new BMap.InfoWindow(body, opts);
-						//打开信息
-						map.openInfoWindow(infoWindow, point);
-//						$(".address_1").html(content);
-//						$(".shop_name").html(shopname);
 						//将信息窗口加到地图
-//						addClickHandler(shopname, content, marker, point, infoWindow);
+						addClickHandler(shopname, content, marker, point, infoWindow);
 						//拖拽标注改变位置
 						mobileLocation(marker, shopname);
 					}
@@ -239,12 +235,14 @@
 
 	function addClickHandler(shopname, content, marker, point, infoWindow) {
 		marker.addEventListener("click", function(e) {
-			alert(1);
-//			openInfo(shopname, content, point, infoWindow, marker);
+			openInfo(shopname, content, point, infoWindow, marker);
 		});
 	}
 
 	function openInfo(shopname, content, point, infoWindow, marker) {
+		map.openInfoWindow(infoWindow, point);
+		$(".address_1").html(content);
+		$(".shop_name").html(shopname);
 		//开启信息窗口
 		//		$(".delete").click(function() {
 		//			if ($(".delete").html() == "删除") {
