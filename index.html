@@ -39,6 +39,7 @@
 						var mk = new BMap.Marker(r.point);
 						map.addOverlay(mk);
 						map.panTo(r.point);
+						alert('您的位置：' + r.point.lng + ',' + r.point.lat);
 						lng = r.point.lng;
 						lat = r.point.lat;
 					} else {
@@ -48,17 +49,16 @@
 					enableHighAccuracy: false
 				})
 				//初始化 并且设置地图现实 级别
-			var point = new BMap.Point(lng, lat);
+			var point = new BMap.Point(116.331398, 39.897445);
 			map.centerAndZoom(point, 15);
 			//启用滚轮放大缩小，默认禁用
 			map.enableScrollWheelZoom();
-//			map.addEventListener("click", function(e) {
-//				//判断点击的是 地图 还是覆盖物
-//				if (e.overlay) {
-//				} else {
-//					alert("地图");
-//				}
-//			});
+			map.addEventListener("click", function(e) {
+				//判断点击的是 地图 还是覆盖物
+				if (e.overlay) {} else {
+					alert("地图");
+				}
+			});
 		</script>
 	</body>
 
