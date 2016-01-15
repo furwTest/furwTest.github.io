@@ -236,15 +236,15 @@
 
 	function addClickHandler(shopname, content, marker, point, infoWindow) {
 		marker.addEventListener("click", function(e) {
-
 			openInfo(shopname, content, point, infoWindow);
 		});
 	}
 
 	function openInfo(shopname, content, point, infoWindow) {
 		map.openInfoWindow(infoWindow, point);
-//		$(".address_1").html(content);
-//		$(".shop_name").html(shopname);
+		$(".address_1").html(content);
+		$(".shop_name").html(shopname);
+		return false;
 		//开启信息窗口
 		//		$(".delete").click(function() {
 		//			if ($(".delete").html() == "删除") {
