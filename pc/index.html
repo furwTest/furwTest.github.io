@@ -169,7 +169,7 @@
 						var point = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
 						var infoWindow = new BMap.InfoWindow(body, opts);
 						//将信息窗口加到地图
-						addClickHandler(shopname, content, marker, point, infoWindow);
+//						addClickHandler(shopname, content, marker, point, infoWindow);
 						//拖拽标注改变位置
 						mobileLocation(marker, shopname);
 					}
@@ -303,6 +303,9 @@
 				$(".delete").html("删除");
 			}
 		});
-		
+		//关闭信息窗口
+		infoWindow.addEventListener("close", function(e) {
+			select();
+		});
 	}
 </script>
