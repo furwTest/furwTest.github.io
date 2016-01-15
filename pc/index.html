@@ -36,8 +36,22 @@
 </html>
 <script type="text/javascript">
 	// 百度地图API功能	
-	map = new BMap.Map("allmap");
-	map.centerAndZoom(new BMap.Point(116.417854, 39.921988), 15);
+	var map = new BMap.Map("allmap");
+	var point = new BMap.Point(116.331398, 39.897445);
+	map.centerAndZoom(point, 12);
+	var geolocation = new BMap.Geolocation();
+	geolocation.getCurrentPosition(function(r) {
+		if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+			var mk = new BMap.Marker(r.point);
+			map.addOverlay(mk);
+			map.panTo(r.point);
+			alert('您的位置：' + r.point.lng + ',' + r.point.lat);
+		} else {
+			alert('failed' + this.getStatus());
+		}
+	}, {
+		enableHighAccuracy: true
+	})
 	var data_info = [
 		[116.417854, 39.921988, "地址：北京市东城区王府井大街88号乐天银泰百货八层"],
 		[116.406605, 39.921585, "地址：北京市东城区东华门大街"],
