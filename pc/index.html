@@ -242,9 +242,10 @@
 	};
 
 	function openInfo(shopname, content, e, infoWindow) {
+		alert(11);
 		var p = e.target;
 		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
-		map.openInfoWindow(infoWindow, point);
+//		map.openInfoWindow(infoWindow, point);
 		$(".address_1").html(content);
 		$(".shop_name").html(shopname);
 		return false;
