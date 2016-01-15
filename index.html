@@ -170,8 +170,9 @@
 						map.addOverlay(marker);
 						//创建信息窗口对象
 						var body = "<div class='shop_name'></div><div class='address_1'></div> <button class='edit'>编辑</button> <button class='delete'>删除</button>";
+						var ccc = "1111";
 						var point = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
-						var infoWindow = new BMap.InfoWindow(body, opts);
+						var infoWindow = new BMap.InfoWindow(ccc, opts);
 						//将信息窗口加到地图
 						addClickHandler(shopname, content, marker, point, infoWindow);
 						//拖拽标注改变位置
@@ -189,8 +190,7 @@
 
 	function openInfo(shopname, content, point, infoWindow, marker) {
 		//开启信息窗口
-		var ccc = "11";
-		map.openInfoWindow(ccc, point);
+		map.openInfoWindow(infoWindow, point);
 		$(".address_1").html(content);
 		$(".shop_name").html(shopname);
 		$(".delete").click(function() {
