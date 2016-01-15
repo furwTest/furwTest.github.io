@@ -179,67 +179,15 @@
 					}
 				}, null);
 		});
-	}
-	//拖拽标注改变位置
-	function mobileLocation(marker, shopname) {
-		marker.addEventListener("dragend", function(e) {
-			//拖拽后的坐标
-			var content = '<div class="info"><label>坐标:</label><input class="coordinates" type="text"/></div>' +
-				'<div class="info"><label>地址:</label><input class="address" type="text"/></div>' +
-				'<div class="operation" style="margin-top:16px"><button onfocus="this.blur()" class="save">保存</button><button onfocus="this.blur()" class="cancel">取消</button></div>';
-			//弹出 添加标注信息窗口
-			var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
-				title: "改变位置", //标题
-				width: 200, //宽度
-				height: 120, //高度
-				panel: "panel", //检索结果面板
-				enableAutoPan: true, //自动平移
-				enableMessage: false,
-				enableSendToPhone: false, //去掉发送到手机 小图标
-				searchTypes: []
-			});
-			//打开添加标注信息窗口
-			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
-			//坐标
-			var coordinates = e.point.lng + "," + e.point.lat;
-			$(".coordinates").val(coordinates);
-			//地址
-			var address;
-			//获取当前点击地址
-			var geoc = new BMap.Geocoder();
-			var pt = e.point;
-			geoc.getLocation(pt, function(rs) {
-				var addComp = rs.addressComponents;
-				address = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
-				$(".address").val(address);
-			});
-			// 取消移动位置
-			$(".cancel").click(function() {
-				searchInfoWindow.close();
-				select();
-			});
-			//保存位置
-			$(".save").click(function() {
-				var address1 = $(".address").val();
-				//更新标注位置信息
-				dataBase.transaction(function(tx) {
-					tx.executeSql("update logs set address = ? ,lon = ? ,lat = ?  where name= ?", [address, e.point.lng, e.point.lat, shopname]);
-				});
-				//保存标记后 关闭窗口
-				searchInfoWindow.close();
-				//回调 (添加到数据库，然后取出展示到页面)
-				select();
-			});
-		});
-	}
+	};
 
 	function addClickHandler(shopname, content, marker, point, infoWindow) {
-		marker.addEventListener("click", function(e) {
-			openInfo(shopname, content, e, point, infoWindow, marker);
+		marker.addEventListener("click", function() {
+			openInfo(shopname, content, point, infoWindow, marker);
 		});
-	}
+	};
 
-	function openInfo(shopname, content, e, point, infoWindow, marker) {
+	function openInfo(shopname, content, point, infoWindow, marker) {
 		//开启信息窗口
 		map.openInfoWindow(infoWindow, point);
 		$(".address_1").html(content);
@@ -311,5 +259,57 @@
 		infoWindow.addEventListener("close", function(e) {
 			select();
 		});
-	}
+	};
+	//拖拽标注改变位置
+	function mobileLocation(marker, shopname) {
+		marker.addEventListener("dragend", function(e) {
+			//拖拽后的坐标
+			var content = '<div class="info"><label>坐标:</label><input class="coordinates" type="text"/></div>' +
+				'<div class="info"><label>地址:</label><input class="address" type="text"/></div>' +
+				'<div class="operation" style="margin-top:16px"><button onfocus="this.blur()" class="save">保存</button><button onfocus="this.blur()" class="cancel">取消</button></div>';
+			//弹出 添加标注信息窗口
+			var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+				title: "改变位置", //标题
+				width: 200, //宽度
+				height: 120, //高度
+				panel: "panel", //检索结果面板
+				enableAutoPan: true, //自动平移
+				enableMessage: false,
+				enableSendToPhone: false, //去掉发送到手机 小图标
+				searchTypes: []
+			});
+			//打开添加标注信息窗口
+			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
+			//坐标
+			var coordinates = e.point.lng + "," + e.point.lat;
+			$(".coordinates").val(coordinates);
+			//地址
+			var address;
+			//获取当前点击地址
+			var geoc = new BMap.Geocoder();
+			var pt = e.point;
+			geoc.getLocation(pt, function(rs) {
+				var addComp = rs.addressComponents;
+				address = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
+				$(".address").val(address);
+			});
+			// 取消移动位置
+			$(".cancel").click(function() {
+				searchInfoWindow.close();
+				select();
+			});
+			//保存位置
+			$(".save").click(function() {
+				var address1 = $(".address").val();
+				//更新标注位置信息
+				dataBase.transaction(function(tx) {
+					tx.executeSql("update logs set address = ? ,lon = ? ,lat = ?  where name= ?", [address, e.point.lng, e.point.lat, shopname]);
+				});
+				//保存标记后 关闭窗口
+				searchInfoWindow.close();
+				//回调 (添加到数据库，然后取出展示到页面)
+				select();
+			});
+		});
+	};
 </script>
