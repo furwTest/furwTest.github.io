@@ -25,6 +25,7 @@
 <script src="js/index.js"></script>
 
 <script type="text/javascript">
+	var point;
 	var lng;
 	var lat;
 	var names = 1;
@@ -44,7 +45,7 @@
 	// 创建地图容器
 	map = new BMap.Map("allmap");
 	//初始化 并且设置地图现实 级别
-	var point = new BMap.Point(116.331398, 39.897445);
+	//	var point = new BMap.Point(116.331398, 39.897445);
 	map.centerAndZoom(point, 15);
 	//启用滚轮放大缩小，默认禁用
 	map.enableScrollWheelZoom();
@@ -55,6 +56,7 @@
 			var mk = new BMap.Marker(r.point);
 			map.addOverlay(mk);
 			map.panTo(r.point);
+			point = r.point;
 			lng = r.point.lng
 			lat = r.point.lat
 		} else {
@@ -63,6 +65,7 @@
 	}, {
 		enableHighAccuracy: true
 	}); //定位结束
+	map.centerAndZoom(point, 15);
 	//单击获取点击的经纬度
 	map.addEventListener("click", function(e) {
 		//判断点击的是 地图 还是覆盖物
