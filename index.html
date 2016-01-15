@@ -35,16 +35,12 @@
 	dataBase.transaction(function(tx) {
 		tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (name unique, lon, lat, address)');
 	});
-
 	// 创建地图容器
 	map = new BMap.Map("allmap");
 	// GPS定位	需要打开电脑定位， 并且需要打开Wi-Fi
 	var geolocation = new BMap.Geolocation();
 	geolocation.getCurrentPosition(function(r) {
 		if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-			//初始化 并且设置地图现实 级别
-			var point = new BMap.Point(r.point.lng, r.point.lat);
-			map.centerAndZoom(point, 15);
 			var mk = new BMap.Marker(r.point);
 			map.addOverlay(mk);
 			map.panTo(r.point);
@@ -55,6 +51,9 @@
 		} else {
 			alert('failed' + this.getStatus());
 		}
+		//初始化 并且设置地图现实 级别
+		var point = new BMap.Point(r.point.lng, r.point.lat);
+		map.centerAndZoom(point, 15);
 	}, {
 		enableHighAccuracy: true
 	}); //定位结束
