@@ -25,8 +25,8 @@
 <script src="../js/index.js"></script>
 
 <script type="text/javascript">
-	var names;
-	var addresss;
+	var names = null;
+	var addresss = null;
 	//打开数据库 如果数据库 不存在将创建数据库
 	var dataBase = openDatabase("sales_address", "1.0", "店铺位置表", 1024 * 1024);
 	//创建表
@@ -276,7 +276,6 @@
 					$("#address_1").val(addresss);
 				}
 			} else {
-				alert(1);
 				var name = $("#shop_name").val();
 				var address_2 = $("#address_1").val();
 				$(".shop_name").html(name);
