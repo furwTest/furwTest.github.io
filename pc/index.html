@@ -27,7 +27,6 @@
 <script type="text/javascript">
 	var names;
 	var addresss;
-	var map;
 	//打开数据库 如果数据库 不存在将创建数据库
 	var dataBase = openDatabase("sales_address", "1.0", "店铺位置表", 1024 * 1024);
 	//创建表
@@ -43,7 +42,7 @@
 	// 创建地图容器
 	map = new BMap.Map("allmap");
 	// GPS定位	需要打开电脑定位， 并且需要打开Wi-Fi
-	//	var geolocation = new BMap.Geolocation();
+	var geolocation = new BMap.Geolocation();
 	var a;
 	var b;
 	geolocation.getCurrentPosition(function(r) {
@@ -58,7 +57,8 @@
 		}
 	}, {
 		enableHighAccuracy: true
-	}); //定位结束	//初始化 并且设置地图现实 级别
+	}); //定位结束
+	//初始化 并且设置地图现实 级别
 	var point = new BMap.Point(a, b);
 	map.centerAndZoom(point, 15);
 	//启用滚轮放大缩小，默认禁用
@@ -173,7 +173,8 @@
 						var point = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
 						var infoWindow = new BMap.InfoWindow(body, opts);
 						//将信息窗口加到地图
-						addClickHandler(shopname, content, marker, infoWindow);
+						//						addClickHandler(shopname, content, marker, point, infoWindow);
+						addClickHandler(shopname, content, marker, point, infoWindow);
 						//拖拽标注改变位置
 						mobileLocation(marker, shopname);
 					}
@@ -231,22 +232,20 @@
 				select();
 			});
 		});
-	};
+	}
 
-	function addClickHandler(shopname, content, marker, infoWindow) {
-		marker.addEventListener("click",
-			function(e) {
-				openInfo(shopname, content, e, infoWindow);
-			});
-	};
+	function addClickHandler(shopname, content, marker, point, infoWindow) {
+		marker.addEventListener("click", function(e) {
+			openInfo(shopname, content, e, point, infoWindow, marker);
+			alert(11);
+		});
+	}
 
-	function openInfo(shopname, content, e, infoWindow) {
-		var p = e.target;
-		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+	function openInfo(shopname, content, e, point, infoWindow, marker) {
+		//开启信息窗口
 		map.openInfoWindow(infoWindow, point);
 		$(".address_1").html(content);
 		$(".shop_name").html(shopname);
-		//开启信息窗口
 		$(".delete").click(function() {
 			if ($(".delete").html() == "删除") {
 				if (window.confirm('你确定要删除标注吗？')) {
@@ -314,5 +313,5 @@
 		infoWindow.addEventListener("close", function(e) {
 			select();
 		});
-	};
+	}
 </script>
