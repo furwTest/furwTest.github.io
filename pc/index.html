@@ -240,6 +240,7 @@
 	}
 
 	function openInfo(shopname, content, e, point, infoWindow, marker) {
+		alert(shopname);
 		//开启信息窗口
 		map.openInfoWindow(infoWindow, point);
 		$(".address_1").html(content);
