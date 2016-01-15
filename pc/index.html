@@ -235,13 +235,13 @@
 	}
 
 	function addClickHandler(shopname, content, marker, point, infoWindow) {
-		marker.addEventListener("click",
-function(e) {
-	openInfo(shopname, content, point, infoWindow, marker);
-});
-}
+		marker.addEventListener("click", function(e) {
+			openInfo(shopname, content, point, infoWindow, marker);
+		});
+	}
 
-function openInfo(shopname, content, point, infoWindow, marker) {//开启信息窗口
+	function openInfo(shopname, content, point, infoWindow, marker) {
+		//开启信息窗口
 		map.openInfoWindow(infoWindow, point);
 		$(".address_1").html(content);
 		$(".shop_name").html(shopname);
