@@ -235,10 +235,9 @@
 	};
 
 	function addClickHandler(shopname, content, marker, infoWindow) {
-		marker.addEventListener("click",
-			function(e) {
-				openInfo(shopname, content, e, infoWindow);
-			});
+		marker.addEventListener("click", function(e) {
+			openInfo(shopname, content, e, infoWindow);
+		});
 	};
 
 	function openInfo(shopname, content, e, infoWindow) {
@@ -248,72 +247,72 @@
 		$(".address_1").html(content);
 		$(".shop_name").html(shopname);
 		//开启信息窗口
-		//		$(".delete").click(function() {
-		//			if ($(".delete").html() == "删除") {
-		//				if (window.confirm('你确定要删除标注吗？')) {
-		//					dataBase.transaction(function(tx) {
-		//						tx.executeSql('delete from logs where name=?', [shopname]);
-		//					});
-		//					infoWindow.close();
-		//					map.removeOverlay(marker);
-		//					return true;
-		//				} else {
-		//					return false;
-		//				}
-		//			}
-		//		});
-		//		//编辑
-		//		$(".edit").click(function() {
-		//			if ($(".edit").html() == "编辑") {
-		//				$(".edit").html("保存");
-		//				$(".delete").html("取消");
-		//				$(".shop_name").html("<input id='shop_name' type='text'/>");
-		//				$(".address_1").html("<input id='address_1' type='text'/>");
-		//				if (names == "null") {
-		//					$("#shop_name").val(shopname);
-		//				} else {
-		//					$("#shop_name").val(names);
-		//				}
-		//				if (addresss == "null") {
-		//					$("#address_1").val(content);
-		//				} else {
-		//					$("#address_1").val(addresss);
-		//				}
-		//			} else {
-		//				var name = $("#shop_name").val();
-		//				var address_2 = $("#address_1").val();
-		//				$(".shop_name").html(name);
-		//				$(".address_1").html(address_2);
-		//				names = name;
-		//				addresss = address_2;
-		//				//更新标注信息
-		//				dataBase.transaction(function(tx) {
-		//					tx.executeSql("update logs set address = ? ,name = ? where name= ?", [address_2, name, shopname]);
-		//				});
-		//				$(".edit").html("编辑");
-		//				$(".delete").html("删除");
-		//			}
-		//		});
-		//		//取消
-		//		$(".delete").click(function() {
-		//			if ($(".delete").html() == "取消") {
-		//				if (names == "null") {
-		//					$(".shop_name").html(shopname);
-		//				} else {
-		//					$(".shop_name").html(names);
-		//				}
-		//				if (addresss == "null") {
-		//					$(".address_1").html(content);
-		//				} else {
-		//					$(".address_1").html(addresss);
-		//				}
-		//				$(".edit").html("编辑");
-		//				$(".delete").html("删除");
-		//			}
-		//		});
-		//		//关闭信息窗口
-		//		infoWindow.addEventListener("close", function(e) {
-		//			select();
-		//		});
+		$(".delete").click(function() {
+			if ($(".delete").html() == "删除") {
+				if (window.confirm('你确定要删除标注吗？')) {
+					dataBase.transaction(function(tx) {
+						tx.executeSql('delete from logs where name=?', [shopname]);
+					});
+					infoWindow.close();
+					map.removeOverlay(marker);
+					return true;
+				} else {
+					return false;
+				}
+			}
+		});
+		//编辑
+		$(".edit").click(function() {
+			if ($(".edit").html() == "编辑") {
+				$(".edit").html("保存");
+				$(".delete").html("取消");
+				$(".shop_name").html("<input id='shop_name' type='text'/>");
+				$(".address_1").html("<input id='address_1' type='text'/>");
+				if (names == "null") {
+					$("#shop_name").val(shopname);
+				} else {
+					$("#shop_name").val(names);
+				}
+				if (addresss == "null") {
+					$("#address_1").val(content);
+				} else {
+					$("#address_1").val(addresss);
+				}
+			} else {
+				var name = $("#shop_name").val();
+				var address_2 = $("#address_1").val();
+				$(".shop_name").html(name);
+				$(".address_1").html(address_2);
+				names = name;
+				addresss = address_2;
+				//更新标注信息
+				dataBase.transaction(function(tx) {
+					tx.executeSql("update logs set address = ? ,name = ? where name= ?", [address_2, name, shopname]);
+				});
+				$(".edit").html("编辑");
+				$(".delete").html("删除");
+			}
+		});
+		//取消
+		$(".delete").click(function() {
+			if ($(".delete").html() == "取消") {
+				if (names == "null") {
+					$(".shop_name").html(shopname);
+				} else {
+					$(".shop_name").html(names);
+				}
+				if (addresss == "null") {
+					$(".address_1").html(content);
+				} else {
+					$(".address_1").html(addresss);
+				}
+				$(".edit").html("编辑");
+				$(".delete").html("删除");
+			}
+		});
+		//关闭信息窗口
+		infoWindow.addEventListener("close", function(e) {
+			select();
+		});
 	};
 </script>
