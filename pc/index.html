@@ -265,10 +265,9 @@
 				$(".delete").html("取消");
 				$(".shop_name").html("<input id='shop_name' type='text'/>");
 				$(".address_1").html("<input id='address_1' type='text'/>");
-				if (1 == 1) {
-					alert(123);
-				}
-				if (names == 'null') {
+		
+				if (names == "") {
+					alert(11);
 					$("#shop_name").val(shopname);
 				} else {
 					$("#shop_name").val(names);
