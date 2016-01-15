@@ -33,17 +33,26 @@
 			// 创建地图容器
 			map = new BMap.Map("allmap");
 			// GPS定位	需要打开电脑定位， 并且需要打开Wi-Fi
-			
-				//初始化 并且设置地图现实 级别
-			var point = new BMap.Point(116.289227,39.941437);
+			var geolocation = new BMap.Geolocation();
+			geolocation.getCurrentPosition(function(r) {
+				if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+					var mk = new BMap.Marker(r.point);
+					map.addOverlay(mk);
+					map.panTo(r.point);
+					lng = r.point.lng;
+					lat = r.point.lat;
+				} else {
+					alert('failed' + this.getStatus());
+				}
+			});
+			//初始化 并且设置地图现实 级别
+			var point = new BMap.Point(lng, lat);
 			map.centerAndZoom(point, 15);
 			//启用滚轮放大缩小，默认禁用
 			map.enableScrollWheelZoom();
 			map.addEventListener("click", function(e) {
 				//判断点击的是 地图 还是覆盖物
-				if (e.overlay) {
-					return;
-				} else {
+				if (e.overlay) {} else {
 					alert("地图");
 				}
 			});
