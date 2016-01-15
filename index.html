@@ -47,12 +47,13 @@
 	var geolocation = new BMap.Geolocation();
 	geolocation.getCurrentPosition(function(r) {
 		if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+			//初始化 并且设置地图现实 级别
+			var point = new BMap.Point(r.point.lng, r.point.lat);
+			map.centerAndZoom(point, 15);
 			var mk = new BMap.Marker(r.point);
 			map.addOverlay(mk);
 			map.panTo(r.point);
-			//初始化 并且设置地图现实 级别
-			var point = new BMap.Point(r.point.lng, r.point.lat);
-			map.centerAndZoom(point, 15); //启用滚轮放大缩小，默认禁用
+			//启用滚轮放大缩小，默认禁用
 			map.enableScrollWheelZoom();
 			lng = r.point.lng
 			lat = r.point.lat
