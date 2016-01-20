@@ -198,14 +198,14 @@
 		title: "", // 信息窗口标题
 		enableMessage: true //设置允许信息窗发送短息
 	};
-	select();
+//	select();
 	//查询数据	
 	function select() {
 		var s = "";
 		//移除所有的覆盖物
 		map.clearOverlays();
-		//		var marker1 = new BMap.Marker(new BMap.Point(lng, lat));
-		//		map.addOverlay(marker1); //增加点
+		var marker1 = new BMap.Marker(new BMap.Point(lng, lat));
+		map.addOverlay(marker1); //增加点
 		var transaction = db.transaction(["mapDB"], 'readwrite');
 		var store = transaction.objectStore("mapDB");
 		var cursor = store.openCursor();
