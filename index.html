@@ -213,6 +213,7 @@
 			if (res) {
 				var rowData = res.value;
 				var myIcon = new BMap.Icon("img/address1.png", new BMap.Size(32, 32));
+				alert(rowData.lon);
 				var pt2 = new BMap.Point(rowData.lon, rowData.lat);
 				var marker = new BMap.Marker(pt2, {
 					icon: myIcon
