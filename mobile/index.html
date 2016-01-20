@@ -7,7 +7,7 @@
 		<title>百度地图 </title>
 		<script src="js/jquery-2.1.0.js"></script>
 		<!--引用百度API-->
-		<script src="http://api.map.baidu.com/api?v=2.0&ak=aNmKBuiP0UQU7ZBSWMsKgGbI"></script>
+		<script src="http://api.map.baidu.com/api?v=2.0&ak=IvBjpxT0GRidmqjDhGMFcQU6"></script>
 		<script src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
 		<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
 		<!--外部样式表-->
@@ -128,9 +128,9 @@
 					//保存标记后 关闭窗口
 					searchInfoWindow.close();
 					//回调 (添加到数据库，然后取出展示到页面)
-select();
-}
-});//取消添加 (取消按钮)
+					select();
+				}
+			}); //取消添加 (取消按钮)
 			$(".cancel").click(function() {
 				searchInfoWindow.close();
 				map.removeOverlay(marker);
@@ -156,7 +156,6 @@ select();
 					var marker1 = new BMap.Marker(new BMap.Point(a, b));
 					map.addOverlay(marker1); //增加点
 					for (j = 0; j < len1; j++) {
-						alert(1);
 						var myIcon = new BMap.Icon("img/address1.png", new BMap.Size(32, 32));
 						var pt = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
 						var marker = new BMap.Marker(pt, {
