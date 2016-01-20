@@ -25,97 +25,44 @@
 <script src="js/index.js"></script>
 
 <script type="text/javascript">
-	var lng;
-	var lat;
 	var names = 1;
 	var addresss = 1;
-	//数据库实例
-	var db;
-	//验证浏览器 是否支持 indexed DB 返回true || false
-	function indexedDBOk() {
-		return "indexedDB" in window;
-	};
-	//DOM加载之后及资源加载之前被触发 
-	document.addEventListener("DOMContentLoaded", function() {
-		//如果浏览器不支持 ， 退出当前函数， 否则继续. 
-		if (!indexedDBOk) return;
-		//打开当前名字的数据库， 如果库不存在，创建库，并设置数据库的版本号
-		var openRequest = indexedDB.open("indexed_db", 1);
-		//数据库第一次创建时 执行 || 版本发生改变时执行
-		openRequest.onupgradeneeded = function(e) {
-				//获取数据库实例
-				var thisDB = e.target.result;
-				//验证是否存在 当前表， 不存在创建标， 并设置key 为自增长
-				if (!thisDB.objectStoreNames.contains("mapDB")) {
-					thisDB.createObjectStore("mapDB", {
-						keyPath: "name"
-					});
-				}
-			}
-			//打开数据库成功
-		openRequest.onsuccess = function(e) {
-				db = e.target.result;
-				addData(db);
-				select(db);
-			}
-			//失败
-		openRequest.onerror = function(e) {
-			alert("抱歉！您的浏览器不支持本地数据库，请更换浏览器继续访问");
-			//Do something for the error 
-		}
-	}, false);
-	//测试数据
-	var mapData = [{
-		name: "店铺1",
-		lon: 116.29837,
-		lat: 39.943755,
-		address: "北京西四环"
-	}, {
-		name: "店铺2",
-		lon: 116.284787,
-		lat: 39.946576,
-		address: "北京西五环"
-	}];
-	//添加测试数据
-	function addData(db) {
-		//为需要操作的表 设置读写权限 ， 并获取当前表的实例
-		var transaction = db.transaction(["mapDB"], "readwrite");
-		var store = transaction.objectStore("mapDB");
-		//通过表实例的 add方法 添加测试数据      
-		for (var i = 0; i < mapData.length; i++) {
-			var request = store.add(mapData[i]);
-		}
-		request.onerror = function(e) {
-			alert("添加测试数据失败");
-			console.log("Error", e.target.error.name);
-		}
-		request.onsuccess = function(e) {
-			//			alert("添加测试数据成功");
-			console.log("Woot! Did it");
-		}
-	};
+	var a;
+	var b;
+	//打开数据库 如果数据库 不存在将创建数据库
+	var dataBase = openDatabase("sales_address", "1.0", "店铺位置表", 1024 * 1024);
+	//创建表
+	dataBase.transaction(function(tx) {
+		tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (name unique, lon, lat, address)');
+	});
+	//添加默认数据
+	dataBase.transaction(function(tx) {
+		tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES ("店铺 A", 116.277854 , 39.931988, "地址：北京市东城区王府井大街88号乐天银泰百货八层")');
+		tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES ("店铺 B", 116.266605 , 39.931585, "地址：北京市东城区东华门大街")');
+		tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES ("店铺 C", 116.292222 , 39.932345, "地址：北京市东城区正义路甲5号S")');
+	});
 	// 创建地图容器
 	map = new BMap.Map("allmap");
 	// GPS定位	需要打开电脑定位， 并且需要打开Wi-Fi
 	var geolocation = new BMap.Geolocation();
 	geolocation.getCurrentPosition(function(r) {
 		if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-			//初始化 并且设置地图现实 级别
-			var point = new BMap.Point(r.point.lng, r.point.lat);
-			map.centerAndZoom(point, 15);
 			var mk = new BMap.Marker(r.point);
 			map.addOverlay(mk);
 			map.panTo(r.point);
-			//启用滚轮放大缩小，默认禁用
-			map.enableScrollWheelZoom();
-			lng = r.point.lng
-			lat = r.point.lat
+			a = r.point.lng
+			b = r.point.lat
 		} else {
 			alert('failed' + this.getStatus());
 		}
 	}, {
 		enableHighAccuracy: true
 	}); //定位结束
+	//初始化 并且设置地图现实 级别
+	var point = new BMap.Point(a, b);
+	map.centerAndZoom(point, 15);
+	//启用滚轮放大缩小，默认禁用
+	map.enableScrollWheelZoom();
 	//单击获取点击的经纬度
 	map.addEventListener("click", function(e) {
 		//判断点击的是 地图 还是覆盖物
@@ -159,8 +106,8 @@
 			var address;
 			//获取当前点击地址
 			var geoc = new BMap.Geocoder();
-			var pt1 = e.point;
-			geoc.getLocation(pt1, function(rs) {
+			var pt = e.point;
+			geoc.getLocation(pt, function(rs) {
 				var addComp = rs.addressComponents;
 				address = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
 				$(".address").val(address);
@@ -183,8 +130,7 @@
 					//回调 (添加到数据库，然后取出展示到页面)
 					select();
 				}
-			});
-			//取消添加 (取消按钮)
+			}); //取消添加 (取消按钮)
 			$(".cancel").click(function() {
 				searchInfoWindow.close();
 				map.removeOverlay(marker);
@@ -197,51 +143,103 @@
 		title: "", // 信息窗口标题
 		enableMessage: true //设置允许信息窗发送短息
 	};
+	select();
 	//查询数据	
 	function select() {
-		var s = "";
-		//移除所有的覆盖物
-		map.clearOverlays();
-		var marker1 = new BMap.Marker(new BMap.Point(lng, lat));
-		map.addOverlay(marker1); //增加点
-		var transaction = db.transaction(["mapDB"], 'readwrite');
-		var store = transaction.objectStore("mapDB");
-		var cursor = store.openCursor();
-		cursor.onsuccess = function(e) {
-			var res = e.target.result;
-			if (res) {
-				var rowData = res.value;
-				var myIcon = new BMap.Icon("img/address1.png", new BMap.Size(32, 32));
-				var pt2 = new BMap.Point(rowData.lon, rowData.lat);
-				var marker = new BMap.Marker(pt2, {
-					icon: myIcon
+		dataBase.transaction(function(tx) {
+			tx.executeSql('SELECT * FROM LOGS', [],
+				function(tx, results) {
+					var len1 = results.rows.length,
+						j;
+					//移除所有的覆盖物
+					map.clearOverlays();
+					var marker1 = new BMap.Marker(new BMap.Point(a, b));
+					map.addOverlay(marker1); //增加点
+					for (j = 0; j < len1; j++) {
+						alert(1);
+						var myIcon = new BMap.Icon("img/address1.png", new BMap.Size(32, 32));
+						var pt = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
+						var marker = new BMap.Marker(pt, {
+							icon: myIcon
+						});
+						var content = results.rows.item(j).address;
+						var shopname = results.rows.item(j).name;
+						// 开启拖拽
+						marker.enableDragging();
+						// 将标注添加到地图中
+						map.addOverlay(marker);
+						//创建信息窗口对象
+						var body = "<div class='shop_name'></div><div class='address_1'></div> <button class='edit'>编辑</button> <button class='delete'>删除</button>";
+						var point = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
+						var infoWindow = new BMap.InfoWindow(body, opts);
+						//将信息窗口加到地图
+						addClickHandler(shopname, content, marker, point, infoWindow);
+						//拖拽标注改变位置
+						mobileLocation(marker, shopname);
+					}
+				}, null);
+		});
+	}
+	//拖拽标注改变位置
+	function mobileLocation(marker, shopname) {
+		marker.addEventListener("dragend", function(e) {
+			//拖拽后的坐标
+			var content = '<div class="info"><label>坐标:</label><input class="coordinates" type="text"/></div>' +
+				'<div class="info"><label>地址:</label><input class="address" type="text"/></div>' +
+				'<div class="operation" style="margin-top:16px"><button onfocus="this.blur()" class="save">保存</button><button onfocus="this.blur()" class="cancel">取消</button></div>';
+			//弹出 添加标注信息窗口
+			var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+				title: "改变位置", //标题
+				width: 200, //宽度
+				height: 120, //高度
+				panel: "panel", //检索结果面板
+				enableAutoPan: true, //自动平移
+				enableMessage: false,
+				enableSendToPhone: false, //去掉发送到手机 小图标
+				searchTypes: []
+			});
+			//打开添加标注信息窗口
+			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
+			//坐标
+			var coordinates = e.point.lng + "," + e.point.lat;
+			$(".coordinates").val(coordinates);
+			//地址
+			var address;
+			//获取当前点击地址
+			var geoc = new BMap.Geocoder();
+			var pt = e.point;
+			geoc.getLocation(pt, function(rs) {
+				var addComp = rs.addressComponents;
+				address = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
+				$(".address").val(address);
+			});
+			// 取消移动位置
+			$(".cancel").click(function() {
+				searchInfoWindow.close();
+				select();
+			});
+			//保存位置
+			$(".save").click(function() {
+				var address1 = $(".address").val();
+				//更新标注位置信息
+				dataBase.transaction(function(tx) {
+					tx.executeSql("update logs set address = ? ,lon = ? ,lat = ?  where name= ?", [address, e.point.lng, e.point.lat, shopname]);
 				});
-				var content = rowData.address;
-				var shopname = rowData.name;
-				// 开启拖拽
-				marker.enableDragging();
-				// 将标注添加到地图中
-				map.addOverlay(marker);
-				//创建信息窗口对象
-				var body = "<div class='shop_name'></div><div class='address_1'></div> <button class='edit'>编辑</button> <button class='delete'>删除</button>";
-				var point = new BMap.Point(rowData.lon, rowData.lat);
-				var infoWindow = new BMap.InfoWindow(body, opts);
-				//将信息窗口加到地图
-				addClickHandler(shopname, content, marker, point, infoWindow);
-				//拖拽标注改变位置
-				mobileLocation(marker, shopname);
-				res.continue();
-			}
-		};
-	};
+				//保存标记后 关闭窗口
+				searchInfoWindow.close();
+				//回调 (添加到数据库，然后取出展示到页面)
+				select();
+			});
+		});
+	}
 
 	function addClickHandler(shopname, content, marker, point, infoWindow) {
-		marker.addEventListener("click", function() {
-			openInfo(shopname, content, point, infoWindow, marker);
+		marker.addEventListener("click", function(e) {
+			openInfo(shopname, content, e, point, infoWindow, marker);
 		});
-	};
+	}
 
-	function openInfo(shopname, content, point, infoWindow, marker) {
+	function openInfo(shopname, content, e, point, infoWindow, marker) {
 		//开启信息窗口
 		map.openInfoWindow(infoWindow, point);
 		$(".address_1").html(content);
@@ -249,15 +247,9 @@
 		$(".delete").click(function() {
 			if ($(".delete").html() == "删除") {
 				if (window.confirm('你确定要删除标注吗？')) {
-					var transaction = db.transaction("mapDB", 'readwrite');
-					var store = transaction.objectStore("mapDB");
-					var request = store.delete(shop_name);
-					request.onsuccess = function(e) {
-						alert("删除成功");
-					};
-					request.onerror = function(e) {
-						alert("删除失败");
-					};
+					dataBase.transaction(function(tx) {
+						tx.executeSql('delete from logs where name=?', [shopname]);
+					});
 					infoWindow.close();
 					map.removeOverlay(marker);
 					return true;
@@ -319,57 +311,5 @@
 		infoWindow.addEventListener("close", function(e) {
 			select();
 		});
-	};
-	//拖拽标注改变位置
-	function mobileLocation(marker, shopname) {
-		marker.addEventListener("dragend", function(e) {
-			//拖拽后的坐标
-			var content = '<div class="info"><label>坐标:</label><input class="coordinates" type="text"/></div>' +
-				'<div class="info"><label>地址:</label><input class="address" type="text"/></div>' +
-				'<div class="operation" style="margin-top:16px"><button onfocus="this.blur()" class="save">保存</button><button onfocus="this.blur()" class="cancel">取消</button></div>';
-			//弹出 添加标注信息窗口
-			var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
-				title: "改变位置", //标题
-				width: 200, //宽度
-				height: 120, //高度
-				panel: "panel", //检索结果面板
-				enableAutoPan: true, //自动平移
-				enableMessage: false,
-				enableSendToPhone: false, //去掉发送到手机 小图标
-				searchTypes: []
-			});
-			//打开添加标注信息窗口
-			searchInfoWindow.open(new BMap.Point(e.point.lng, e.point.lat));
-			//坐标
-			var coordinates = e.point.lng + "," + e.point.lat;
-			$(".coordinates").val(coordinates);
-			//地址
-			var address;
-			//获取当前点击地址
-			var geoc = new BMap.Geocoder();
-			var pt = e.point;
-			geoc.getLocation(pt, function(rs) {
-				var addComp = rs.addressComponents;
-				address = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
-				$(".address").val(address);
-			});
-			// 取消移动位置
-			$(".cancel").click(function() {
-				searchInfoWindow.close();
-				select();
-			});
-			//保存位置
-			$(".save").click(function() {
-				var address1 = $(".address").val();
-				//更新标注位置信息
-				dataBase.transaction(function(tx) {
-					tx.executeSql("update logs set address = ? ,lon = ? ,lat = ?  where name= ?", [address, e.point.lng, e.point.lat, shopname]);
-				});
-				//保存标记后 关闭窗口
-				searchInfoWindow.close();
-				//回调 (添加到数据库，然后取出展示到页面)
-				select();
-			});
-		});
-	};
+	}
 </script>
