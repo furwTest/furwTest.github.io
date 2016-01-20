@@ -70,7 +70,7 @@
 		lon: 116.196096,
 		lat: 39.945564,
 		address: "北京西四环"
-	},{
+	}, {
 		name: "店铺2",
 		lon: 116.196496,
 		lat: 39.946564,
@@ -86,11 +86,11 @@
 			var request = store.add(mapData[i]);
 		}
 		request.onerror = function(e) {
-			alert("添加测试数据成功")
+			alert("添加测试数据失败");
 			console.log("Error", e.target.error.name);
 		}
 		request.onsuccess = function(e) {
-			alert("添加测试数据失败")
+			alert("添加测试数据成功");
 			console.log("Woot! Did it");
 		}
 	};
@@ -210,6 +210,7 @@
 		var store = transaction.objectStore("mapDB");
 		var cursor = store.openCursor();
 		cursor.onsuccess = function(e) {
+			alert("读取数据成功");
 			var res = e.target.result;
 			if (res) {
 				var rowData = res.value;
