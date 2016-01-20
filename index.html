@@ -55,7 +55,6 @@
 			//打开数据库成功
 		openRequest.onsuccess = function(e) {
 				db = e.target.result;
-				alert("打开数据库成功");
 				addData(db);
 				select(db);
 			}
@@ -91,7 +90,7 @@
 			console.log("Error", e.target.error.name);
 		}
 		request.onsuccess = function(e) {
-			alert("添加测试数据成功");
+//			alert("添加测试数据成功");
 			console.log("Woot! Did it");
 		}
 	};
@@ -204,15 +203,12 @@
 		var s = "";
 		//移除所有的覆盖物
 		map.clearOverlays();
-		alert("$11" + lng);
 		//		var marker1 = new BMap.Marker(new BMap.Point(lng, lat));
 		//		map.addOverlay(marker1); //增加点
-		alert("db" + db);
 		var transaction = db.transaction(["mapDB"], 'readwrite');
 		var store = transaction.objectStore("mapDB");
 		var cursor = store.openCursor();
 		cursor.onsuccess = function(e) {
-			alert("读取数据成功");
 			var res = e.target.result;
 			if (res) {
 				var rowData = res.value;
