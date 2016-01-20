@@ -200,6 +200,13 @@
 	};
 	//查询数据	
 	function select() {
+		var s = "";
+		//移除所有的覆盖物
+		map.clearOverlays();
+		alert(lng);
+		var marker1 = new BMap.Marker(new BMap.Point(lng, lat));
+		map.addOverlay(marker1); //增加点
+		alert(1);
 		
 	};
 
