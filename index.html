@@ -206,6 +206,7 @@
 		map.clearOverlays();
 		var marker1 = new BMap.Marker(new BMap.Point(lng, lat));
 		map.addOverlay(marker1); //增加点
+		alert(db);
 		var transaction = db.transaction(["mapDB"], 'readwrite');
 		var store = transaction.objectStore("mapDB");
 		var cursor = store.openCursor();
