@@ -61,7 +61,7 @@
 			//失败
 		openRequest.onerror = function(e) {
 			alert("抱歉！您的浏览器不支持本地数据库，请更换浏览器继续访问");
-				//Do something for the error 
+			//Do something for the error 
 		}
 	}, false);
 	//测试数据
@@ -198,17 +198,45 @@
 		title: "", // 信息窗口标题
 		enableMessage: true //设置允许信息窗发送短息
 	};
-	select();
 	//查询数据	
 	function select() {
 		var s = "";
 		//移除所有的覆盖物
 		map.clearOverlays();
-		alert("1245"+lng);
-		var marker1 = new BMap.Marker(new BMap.Point(lng, lat));
-		map.addOverlay(marker1); //增加点
+		alert("$11" + lng);
+		//		var marker1 = new BMap.Marker(new BMap.Point(lng, lat));
+		//		map.addOverlay(marker1); //增加点
 		alert(1);
-		
+		var transaction = db.transaction(["mapDB"], 'readwrite');
+		var store = transaction.objectStore("mapDB");
+		var cursor = store.openCursor();
+		cursor.onsuccess = function(e) {
+			alert("读取数据成功");
+			var res = e.target.result;
+			if (res) {
+				var rowData = res.value;
+				var myIcon = new BMap.Icon("img/address1.png", new BMap.Size(32, 32));
+				var pt2 = new BMap.Point(rowData.lon, rowData.lat);
+				var marker = new BMap.Marker(pt2, {
+					icon: myIcon
+				});
+				var content = rowData.address;
+				var shopname = rowData.name;
+				// 开启拖拽
+				marker.enableDragging();
+				// 将标注添加到地图中
+				map.addOverlay(marker);
+				//创建信息窗口对象
+				var body = "<div class='shop_name'></div><div class='address_1'></div> <button class='edit'>编辑</button> <button class='delete'>删除</button>";
+				var point = new BMap.Point(rowData.lon, rowData.lat);
+				var infoWindow = new BMap.InfoWindow(body, opts);
+				//将信息窗口加到地图
+				addClickHandler(shopname, content, marker, point, infoWindow);
+				//拖拽标注改变位置
+				mobileLocation(marker, shopname);
+				res.continue();
+			}
+		};
 	};
 
 	function addClickHandler(shopname, content, marker, point, infoWindow) {
