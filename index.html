@@ -57,6 +57,7 @@
 				db = e.target.result;
 				alert("打开数据库成功");
 				addData(db);
+				select(db);
 			}
 			//失败
 		openRequest.onerror = function(e) {
@@ -198,7 +199,6 @@
 		title: "", // 信息窗口标题
 		enableMessage: true //设置允许信息窗发送短息
 	};
-	select();
 	//查询数据	
 	function select() {
 		var s = "";
@@ -207,7 +207,7 @@
 		alert("$11" + lng);
 		//		var marker1 = new BMap.Marker(new BMap.Point(lng, lat));
 		//		map.addOverlay(marker1); //增加点
-		alert("db"+db);
+		alert("db" + db);
 		var transaction = db.transaction(["mapDB"], 'readwrite');
 		var store = transaction.objectStore("mapDB");
 		var cursor = store.openCursor();
