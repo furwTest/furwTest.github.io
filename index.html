@@ -27,8 +27,8 @@
 <script type="text/javascript">
 	var names = 1;
 	var addresss = 1;
-	var a;
-	var b;
+	var lon;
+	var lat;
 	//打开数据库 如果数据库 不存在将创建数据库
 	var dataBase = openDatabase("sales_address", "1.0", "店铺位置表", 1024 * 1024);
 	//创建表
@@ -50,8 +50,8 @@
 			var mk = new BMap.Marker(r.point);
 			map.addOverlay(mk);
 			map.panTo(r.point);
-			a = r.point.lng
-			b = r.point.lat
+			lon = r.point.lng
+			lat = r.point.lat
 		} else {
 			alert('failed' + this.getStatus());
 		}
@@ -153,7 +153,7 @@
 						j;
 					//移除所有的覆盖物
 					map.clearOverlays();
-					var marker1 = new BMap.Marker(new BMap.Point(a, b));
+					var marker1 = new BMap.Marker(new BMap.Point(lon, lat));
 					map.addOverlay(marker1); //增加点
 					for (j = 0; j < len1; j++) {
 						var myIcon = new BMap.Icon("img/address1.png", new BMap.Size(32, 32));
