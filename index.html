@@ -55,6 +55,7 @@
 			//打开数据库成功
 		openRequest.onsuccess = function(e) {
 				db = e.target.result;
+				alert("打开数据库成功")
 				addData(db);
 			}
 			//失败
@@ -69,6 +70,11 @@
 		lon: 116.196096,
 		lat: 39.945564,
 		address: "北京西四环"
+	},{
+		name: "店铺2",
+		lon: 116.196496,
+		lat: 39.946564,
+		address: "北京西五环"
 	}];
 	//添加测试数据
 	function addData(db) {
