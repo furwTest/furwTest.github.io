@@ -199,7 +199,40 @@
 	};
 	//查询数据	
 	function select() {
-		
+		var s = "";
+		//移除所有的覆盖物
+		map.clearOverlays();
+		var marker1 = new BMap.Marker(new BMap.Point(lng, lat));
+		map.addOverlay(marker1); //增加点
+		var transaction = db.transaction(["mapDB"], 'readwrite');
+		var store = transaction.objectStore("mapDB");
+		var cursor = store.openCursor();
+		cursor.onsuccess = function(e) {
+			var res = e.target.result;
+			if (res) {
+				var rowData = res.value;
+				var myIcon = new BMap.Icon("img/address1.png", new BMap.Size(32, 32));
+				var pt2 = new BMap.Point(rowData.lon, rowData.lat);
+				var marker = new BMap.Marker(pt2, {
+					icon: myIcon
+				});
+				var content = rowData.address;
+				var shopname = rowData.name;
+				// 开启拖拽
+				marker.enableDragging();
+				// 将标注添加到地图中
+				map.addOverlay(marker);
+				//创建信息窗口对象
+				var body = "<div class='shop_name'></div><div class='address_1'></div> <button class='edit'>编辑</button> <button class='delete'>删除</button>";
+				var point = new BMap.Point(rowData.lon, rowData.lat);
+				var infoWindow = new BMap.InfoWindow(body, opts);
+				//将信息窗口加到地图
+				addClickHandler(shopname, content, marker, point, infoWindow);
+				//拖拽标注改变位置
+				mobileLocation(marker, shopname);
+				res.continue();
+			}
+		};
 	};
 
 	function addClickHandler(shopname, content, marker, point, infoWindow) {
@@ -209,6 +242,7 @@
 	};
 
 	function openInfo(shopname, content, point, infoWindow, marker) {
+		alert(db);
 		//开启信息窗口
 		map.openInfoWindow(infoWindow, point);
 		$(".address_1").html(content);
