@@ -156,7 +156,6 @@
 					var marker1 = new BMap.Marker(new BMap.Point(a, b));
 					map.addOverlay(marker1); //增加点
 					for (j = 0; j < len1; j++) {
-						alert(1);
 						var myIcon = new BMap.Icon("img/address1.png", new BMap.Size(32, 32));
 						var pt = new BMap.Point(results.rows.item(j).lon, results.rows.item(j).lat);
 						var marker = new BMap.Marker(pt, {
