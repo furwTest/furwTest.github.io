@@ -67,13 +67,13 @@
 	//测试数据
 	var mapData = [{
 		name: "店铺1",
-		lon: 116.196096,
-		lat: 39.945564,
+		lon: 116.29837,
+		lat: 39.943755,
 		address: "北京西四环"
 	}, {
 		name: "店铺2",
-		lon: 116.196496,
-		lat: 39.946564,
+		lon: 116.284787,
+		lat: 39.946576,
 		address: "北京西五环"
 	}];
 	//添加测试数据
@@ -90,7 +90,7 @@
 			console.log("Error", e.target.error.name);
 		}
 		request.onsuccess = function(e) {
-//			alert("添加测试数据成功");
+			//			alert("添加测试数据成功");
 			console.log("Woot! Did it");
 		}
 	};
@@ -198,6 +198,7 @@
 		title: "", // 信息窗口标题
 		enableMessage: true //设置允许信息窗发送短息
 	};
+	select();
 	//查询数据	
 	function select() {
 		var s = "";
