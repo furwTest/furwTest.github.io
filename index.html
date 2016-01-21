@@ -310,12 +310,12 @@
 					var transaction = db.transaction("mapData", 'readwrite');
 					var store = transaction.objectStore("mapData");
 					var request = store.delete(shopname);
-					request.onsuccess = function(e) {
-						alert("删除成功");
-					};
-					request.onerror = function(e) {
-						alert("删除失败");
-					}
+//					request.onsuccess = function(e) {
+//						alert("删除成功");
+//					};
+//					request.onerror = function(e) {
+//						alert("删除失败");
+//					}
 					infoWindow.close();
 					map.removeOverlay(marker);
 					return true;
