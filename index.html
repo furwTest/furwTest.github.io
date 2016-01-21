@@ -87,7 +87,6 @@
 			alert("添加数据失败");
 		}
 		request.onsuccess = function(e) {
-			select(db);
 			alert("添加数据成功");
 		}
 	};
@@ -193,6 +192,7 @@
 		title: "", // 信息窗口标题
 		enableMessage: true //设置允许信息窗发送短息
 	};
+	select(db);
 	//查询数据	
 	function select(db) {
 		alert(db);
