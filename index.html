@@ -81,7 +81,7 @@
 		var store = transaction.objectStore("mapData");
 		//通过表实例的 add方法 添加测试数据      
 		for (var i = 0; i < maps.length; i++) {
-			var request = store.add(students[i]);
+			var request = store.add(maps[i]);
 		}
 		request.onerror = function(e) {
 			alert("添加数据失败");
