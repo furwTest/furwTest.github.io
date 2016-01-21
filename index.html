@@ -48,7 +48,7 @@
 				//验证是否存在 当前表， 不存在创建标， 并设置key 为自增长
 				if (!thisDB.objectStoreNames.contains("mapData")) {
 					thisDB.createObjectStore("mapData", {
-						autoIncrement: true
+						keyPath: "code"
 					});
 				}
 			}
@@ -56,7 +56,7 @@
 		openRequest.onsuccess = function(e) {
 				db = e.target.result;
 				//				alert("数据库打开成功");
-//				addData(db);
+				//				addData(db);
 				select(db);
 			} //失败
 		openRequest.onerror = function(e) {
@@ -64,17 +64,17 @@
 		}
 	}, false);
 	//测试数据
-//	var maps = [{
-//		name: "店铺1",
-//		lng: 116.297937,
-//		lat: 39.944298,
-//		address: "地址1"
-//	}, {
-//		name: "店铺2",
-//		lng: 116.28378,
-//		lat: 39.946677,
-//		address: "地址2"
-//	}];
+	//	var maps = [{
+	//		name: "店铺1",
+	//		lng: 116.297937,
+	//		lat: 39.944298,
+	//		address: "地址1"
+	//	}, {
+	//		name: "店铺2",
+	//		lng: 116.28378,
+	//		lat: 39.946677,
+	//		address: "地址2"
+	//	}];
 	//添加测试数据
 	function addData(db) {
 		//为需要操作的表 设置读写权限 ， 并获取当前表的实例
@@ -173,7 +173,12 @@
 					var address1 = $(".address").val();
 					var transaction = db.transaction(["mapData"], "readwrite");
 					var store = transaction.objectStore("mapData");
+					//随机数
+					function getRandom(n) {
+						return Math.floor(Math.random() * n + 1)
+					}
 					var person = {
+						code: getRandom(9999);
 						name: shop,
 						lng: e.point.lng,
 						lat: e.point.lat,
@@ -235,13 +240,13 @@
 				//将信息窗口加到地图
 				addClickHandler(shopname, content, marker, point, infoWindow, keys);
 				//拖拽标注改变位置
-				mobileLocation(marker, shopname,keys);
+				mobileLocation(marker, shopname, keys);
 				res.continue();
 			}
 		};
 	}
 	//拖拽标注改变位置
-	function mobileLocation(marker, shopname,keys) {
+	function mobileLocation(marker, shopname, keys) {
 		marker.addEventListener("dragend", function(e) {
 			//拖拽后的坐标
 			var content = '<div class="info"><label>坐标:</label><input class="coordinates" type="text"/></div>' +
@@ -363,7 +368,6 @@
 				var transaction = db.transaction(["mapData"], "readwrite");
 				var objectStore = transaction.objectStore("mapData");
 				var request = objectStore.get(keys);
-
 				request.onsuccess = function(event) {
 					alert(request.result.name);
 					request.result.name = name;
