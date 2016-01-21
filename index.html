@@ -87,6 +87,8 @@
 			alert("添加数据失败");
 		}
 		request.onsuccess = function(e) {
+			db = e.target.result;
+			select(db);
 			alert("添加数据成功");
 		}
 	};
@@ -192,9 +194,9 @@
 		title: "", // 信息窗口标题
 		enableMessage: true //设置允许信息窗发送短息
 	};
-	select();
+	select(db);
 	//查询数据	
-	function select() {
+	function select(db) {
 		//移除所有的覆盖物
 		map.clearOverlays();
 		var marker1 = new BMap.Marker(new BMap.Point(a, b));
