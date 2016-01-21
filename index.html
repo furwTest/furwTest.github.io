@@ -233,7 +233,7 @@
 				var point = new BMap.Point(rowData.lng, rowData.lat);
 				var infoWindow = new BMap.InfoWindow(body, opts);
 				//将信息窗口加到地图
-				addClickHandler(shopname, content, marker, point, infoWindow,keys);
+				addClickHandler(shopname, content, marker, point, infoWindow, keys);
 				//拖拽标注改变位置
 				mobileLocation(marker, shopname);
 				res.continue();
@@ -293,15 +293,14 @@
 		});
 	}
 
-	function addClickHandler(shopname, content, marker, point, infoWindow,keys) {
+	function addClickHandler(shopname, content, marker, point, infoWindow, keys) {
 		marker.addEventListener("click", function(e) {
-			openInfo(shopname, content, e, point, infoWindow, marker,keys);
+			openInfo(shopname, content, e, point, infoWindow, marker, keys);
 		});
 	}
 
-	function openInfo(shopname, content, e, point, infoWindow, marker,keys) {
+	function openInfo(shopname, content, e, point, infoWindow, marker, keys) {
 		//开启信息窗口
-		alert(keys);
 		map.openInfoWindow(infoWindow, point);
 		$(".address_1").html(content);
 		$(".shop_name").html(shopname);
@@ -310,7 +309,7 @@
 				if (window.confirm('你确定要删除标注吗？')) {
 					var transaction = db.transaction("mapData", 'readwrite');
 					var store = transaction.objectStore("mapData");
-					var request = store.delete(shopname);
+					var request = store.delete(keys);
 					//					request.onsuccess = function(e) {
 					//						alert("删除成功");
 					//					};
@@ -350,10 +349,10 @@
 				//更新标注信息
 				var transaction = db.transaction(["mapData"], "readwrite");
 				var objectStore = transaction.objectStore("mapData");
-				var request = objectStore.get(shopname);
+				var request = objectStore.get(keys);
 				request.onsuccess = function(event) {
-					request.result.name = "1111";
-					request.result.address = "12345";
+					request.result.name = name;
+					request.result.address = address_2;
 					var request1 = objectStore.put(request.result);
 					request1.onsuccess = function(e) {
 						alert("修改成功");
