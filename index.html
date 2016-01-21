@@ -346,15 +346,13 @@
 				var address_2 = $("#address_1").val();
 				$(".shop_name").html(name);
 				$(".address_1").html(address_2);
-				names = name;
-				addresss = address_2;
 				//更新标注信息
 				var transaction = db.transaction(["mapData"], "readwrite");
 				var objectStore = transaction.objectStore("mapData");
 				var request = objectStore.get(shopname);
 				request.onsuccess = function(event) {
-					request.result.name = names;
-					request.result.address = addresss;
+					request.result.name = name;
+					request.result.address = address_2;
 					var request1 = objectStore.put(request.result);
 					request1.onsuccess = function(e) {
 						alert("修改成功");
