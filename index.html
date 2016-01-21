@@ -307,6 +307,7 @@
 		$(".delete").click(function() {
 			if ($(".delete").html() == "删除") {
 				if (window.confirm('你确定要删除标注吗？')) {
+					alert(keys);
 					var transaction = db.transaction("mapData", 'readwrite');
 					var store = transaction.objectStore("mapData");
 					var request = store.delete(keys);
