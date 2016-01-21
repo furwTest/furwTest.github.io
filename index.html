@@ -349,11 +349,10 @@
 				//更新标注信息
 				var transaction = db.transaction(["mapData"], "readwrite");
 				var objectStore = transaction.objectStore("mapData");
-				alert(shopname);
 				var request = objectStore.get(shopname);
 				request.onsuccess = function(event) {
-					request.result.name = name;
-					request.result.address = address_2;
+					request.result.name = "1111";
+					request.result.address = "12345";
 					var request1 = objectStore.put(request.result);
 					request1.onsuccess = function(e) {
 						alert("修改成功");
