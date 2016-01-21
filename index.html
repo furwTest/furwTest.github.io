@@ -56,7 +56,7 @@
 		openRequest.onsuccess = function(e) {
 				db = e.target.result;
 				//				alert("数据库打开成功");
-				addData(db);
+//				addData(db);
 				select(db);
 			} //失败
 		openRequest.onerror = function(e) {
@@ -64,17 +64,17 @@
 		}
 	}, false);
 	//测试数据
-	var maps = [{
-		name: "店铺1",
-		lng: 116.297937,
-		lat: 39.944298,
-		address: "地址1"
-	}, {
-		name: "店铺2",
-		lng: 116.28378,
-		lat: 39.946677,
-		address: "地址2"
-	}];
+//	var maps = [{
+//		name: "店铺1",
+//		lng: 116.297937,
+//		lat: 39.944298,
+//		address: "地址1"
+//	}, {
+//		name: "店铺2",
+//		lng: 116.28378,
+//		lat: 39.946677,
+//		address: "地址2"
+//	}];
 	//添加测试数据
 	function addData(db) {
 		//为需要操作的表 设置读写权限 ， 并获取当前表的实例
