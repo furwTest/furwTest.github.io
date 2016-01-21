@@ -27,6 +27,8 @@
 <script type="text/javascript">
 	var names = "null";
 	var addresss = "null";
+	var a;
+	var b;
 	//打开数据库 如果数据库 不存在将创建数据库
 	var dataBase = openDatabase("sales_address", "1.0", "店铺位置表", 1024 * 1024);
 	//创建表
@@ -43,8 +45,6 @@
 	map = new BMap.Map("allmap");
 	// GPS定位	需要打开电脑定位， 并且需要打开Wi-Fi
 	var geolocation = new BMap.Geolocation();
-	var a;
-	var b;
 	geolocation.getCurrentPosition(function(r) {
 		if (this.getStatus() == BMAP_STATUS_SUCCESS) {
 			var mk = new BMap.Marker(r.point);
