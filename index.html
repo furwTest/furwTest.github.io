@@ -60,7 +60,7 @@
 				select(db);
 			} //失败
 		openRequest.onerror = function(e) {
-			alert("数据库打开失败");
+//			alert("数据库打开失败");
 		}
 	}, false);
 	//测试数据
@@ -296,10 +296,10 @@
 					request.result.address = address;
 					var request1 = objectStore.put(request.result);
 					request1.onsuccess = function(e) {
-						alert("位置修改成功");
+//						alert("位置修改成功");
 					};
 					request1.onerror = function(e) {
-						alert("位置修改失败");
+//						alert("位置修改失败");
 					};
 				};
 				//保存标记后 关闭窗口
@@ -368,7 +368,7 @@
 				var objectStore = transaction.objectStore("mapData");
 				var request = objectStore.get(keys);
 				request.onsuccess = function(event) {
-					alert(request.result.name);
+//					alert(request.result.name);
 					request.result.name = name;
 					request.result.address = address_2;
 					var request1 = objectStore.put(request.result);
