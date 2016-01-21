@@ -174,11 +174,11 @@
 					var transaction = db.transaction(["mapData"], "readwrite");
 					var store = transaction.objectStore("mapData");
 					//随机数
-					function getRandom(n) {
-						return Math.floor(Math.random() * n + 1)
-					}
+//					function getRandom(n) {
+//						return Math.floor(Math.random() * n + 1)
+//					}
 					var person = {
-						code: getRandom(9999);
+						code: 111;
 						name: shop,
 						lng: e.point.lng,
 						lat: e.point.lat,
