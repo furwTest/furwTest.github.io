@@ -119,7 +119,6 @@
 		if (e.overlay) {
 			//覆盖物 不操作
 		} else {
-			alert(db);
 			//坐标
 			var coordinates = e.point.lng + "," + e.point.lat;
 			var content = '<div class="info"> <label>名称:</label><input class="name" type="text"/></div>' +
@@ -172,14 +171,27 @@
 					$(".msg").html("");
 					var shop = $(".name").val();
 					var address1 = $(".address").val();
-					//添加标记内容到数据库
-					dataBase.transaction(function(tx) {
-						tx.executeSql('INSERT INTO LOGS (name, lon, lat ,address) VALUES( ? , ? , ? ,?)', [shop, e.point.lng, e.point.lat, "地址:" + address1]);
-					});
+					var transaction = db.transaction(["mapData"], "readwrite");
+					//Ask for the objectStore
+					var store = transaction.objectStore("mapData");
+					//Define a person
+					var person = {
+						name: shop,
+						email: address1,
+						lng: e.point.lng,
+						lat: e.point.lat
+					}
+					var request = store.add(person);
+					request.onerror = function(e) {
+						alert("添加成功");
+					}
+					request.onsuccess = function(e) {
+						alert("添加失败");
+					}
 					//保存标记后 关闭窗口
 					searchInfoWindow.close();
 					//回调 (添加到数据库，然后取出展示到页面)
-					select();
+					select(db);
 				}
 			}); //取消添加 (取消按钮)
 			$(".cancel").click(function() {
