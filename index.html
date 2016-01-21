@@ -233,7 +233,7 @@
 				var point = new BMap.Point(rowData.lng, rowData.lat);
 				var infoWindow = new BMap.InfoWindow(body, opts);
 				//将信息窗口加到地图
-				addClickHandler(shopname, content, marker, point, infoWindow);
+				addClickHandler(shopname, content, marker, point, infoWindow,keys);
 				//拖拽标注改变位置
 				mobileLocation(marker, shopname);
 				res.continue();
@@ -293,14 +293,15 @@
 		});
 	}
 
-	function addClickHandler(shopname, content, marker, point, infoWindow) {
+	function addClickHandler(shopname, content, marker, point, infoWindow,keys) {
 		marker.addEventListener("click", function(e) {
-			openInfo(shopname, content, e, point, infoWindow, marker);
+			openInfo(shopname, content, e, point, infoWindow, marker,keys);
 		});
 	}
 
-	function openInfo(shopname, content, e, point, infoWindow, marker) {
+	function openInfo(shopname, content, e, point, infoWindow, marker,keys) {
 		//开启信息窗口
+		alert(keys);
 		map.openInfoWindow(infoWindow, point);
 		$(".address_1").html(content);
 		$(".shop_name").html(shopname);
