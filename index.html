@@ -57,6 +57,7 @@
 				db = e.target.result;
 				alert("数据库打开成功");
 				addData(db);
+				select(db);
 			} //失败
 		openRequest.onerror = function(e) {
 			alert("数据库打开失败");
@@ -192,7 +193,6 @@
 		title: "", // 信息窗口标题
 		enableMessage: true //设置允许信息窗发送短息
 	};
-	select(db);
 	//查询数据	
 	function select(db) {
 		alert(db);
