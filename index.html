@@ -55,7 +55,7 @@
 			//打开数据库成功
 		openRequest.onsuccess = function(e) {
 				db = e.target.result;
-				alert("数据库打开成功");
+				//				alert("数据库打开成功");
 				addData(db);
 				select(db);
 			} //失败
@@ -85,10 +85,10 @@
 			var request = store.add(maps[i]);
 		}
 		request.onerror = function(e) {
-			alert("添加数据失败");
+			//			alert("添加数据失败");
 		}
 		request.onsuccess = function(e) {
-			alert("添加数据成功");
+			//			alert("添加数据成功");
 		}
 	};
 	// 创建地图容器
@@ -119,6 +119,7 @@
 		if (e.overlay) {
 			//覆盖物 不操作
 		} else {
+			alert(db);
 			//坐标
 			var coordinates = e.point.lng + "," + e.point.lat;
 			var content = '<div class="info"> <label>名称:</label><input class="name" type="text"/></div>' +
@@ -195,7 +196,7 @@
 	};
 	//查询数据	
 	function select(db) {
-		alert(db);
+		//		alert(db);
 		//移除所有的覆盖物
 		map.clearOverlays();
 		var marker1 = new BMap.Marker(new BMap.Point(a, b));
