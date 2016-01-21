@@ -48,7 +48,7 @@
 				//验证是否存在 当前表， 不存在创建标， 并设置key 为自增长
 				if (!thisDB.objectStoreNames.contains("mapData")) {
 					thisDB.createObjectStore("mapData", {
-						keyPath: "name"
+						autoIncrement: true
 					});
 				}
 			}
