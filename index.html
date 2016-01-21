@@ -362,6 +362,7 @@
 				var transaction = db.transaction(["mapData"], "readwrite");
 				var objectStore = transaction.objectStore("mapData");
 				var request = objectStore.get(keys);
+				alert(request.result.name);
 				request.onsuccess = function(event) {
 					request.result.name = name;
 					request.result.address = address_2;
