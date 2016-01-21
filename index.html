@@ -177,16 +177,16 @@
 					//Define a person
 					var person = {
 						name: shop,
-						email: address1,
 						lng: e.point.lng,
 						lat: e.point.lat
+						address: address1,
 					}
 					var request = store.add(person);
 					request.onerror = function(e) {
-						alert("添加成功");
+						alert("添加失败");
 					}
 					request.onsuccess = function(e) {
-						alert("添加失败");
+						alert("添加成功");
 					}
 					//保存标记后 关闭窗口
 					searchInfoWindow.close();
@@ -219,7 +219,6 @@
 		cursor.onsuccess = function(e) {
 			var res = e.target.result;
 			if (res) {
-				alert("读取成功");
 				var rowData = res.value;
 				var keys = res.key
 				var myIcon = new BMap.Icon("img/address1.png", new BMap.Size(32, 32));
