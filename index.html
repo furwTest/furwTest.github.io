@@ -180,12 +180,12 @@
 						address: address1
 					}
 					var request = store.add(person);
-//					request.onerror = function(e) {
-//						alert("添加失败");
-//					}
-//					request.onsuccess = function(e) {
-//						alert("添加成功");
-//					}
+					//					request.onerror = function(e) {
+					//						alert("添加失败");
+					//					}
+					//					request.onsuccess = function(e) {
+					//						alert("添加成功");
+					//					}
 					//保存标记后 关闭窗口
 					searchInfoWindow.close();
 					//回调 (添加到数据库，然后取出展示到页面)
@@ -310,12 +310,12 @@
 					var transaction = db.transaction("mapData", 'readwrite');
 					var store = transaction.objectStore("mapData");
 					var request = store.delete(shopname);
-//					request.onsuccess = function(e) {
-//						alert("删除成功");
-//					};
-//					request.onerror = function(e) {
-//						alert("删除失败");
-//					}
+					//					request.onsuccess = function(e) {
+					//						alert("删除成功");
+					//					};
+					//					request.onerror = function(e) {
+					//						alert("删除失败");
+					//					}
 					infoWindow.close();
 					map.removeOverlay(marker);
 					return true;
@@ -349,9 +349,20 @@
 				names = name;
 				addresss = address_2;
 				//更新标注信息
-				dataBase.transaction(function(tx) {
-					tx.executeSql("update logs set address = ? ,name = ? where name= ?", [address_2, name, shopname]);
-				});
+				var transaction = db.transaction(["mapData"], "readwrite");
+				var objectStore = transaction.objectStore("mapData");
+				var request = objectStore.get(shopname);
+				request.onsuccess = function(event) {
+					request.result.name = names;
+					request.result.address = addresss;
+					var request1 = objectStore.put(request.result);
+					request1.onsuccess = function(e) {
+						alert("修改成功");
+					};
+					request1.onerror = function(e) {
+						alert("修改失败");
+					};
+				};
 				$(".edit").html("编辑");
 				$(".delete").html("删除");
 			}
